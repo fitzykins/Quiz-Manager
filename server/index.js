@@ -5,7 +5,7 @@ const app = express();
 
 // API endpoints go here!
 app.get('/api/hello', (req, res) => {
-  return rex.json('Hello, World');
+  return res.json('Hello, World');
 });
 
 // Serve the built client
