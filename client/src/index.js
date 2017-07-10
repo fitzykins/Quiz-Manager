@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import reducer from './reducers/quiz-reducer';
-import Login from './components/quiz';
+import Login from './components/login';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
