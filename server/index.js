@@ -43,7 +43,7 @@ app.get('/quizzes', (req, res) =>{
     })
     .catch(err =>{
       console.error(err);
-      res.status(500).json({error: 'We are sorry, we were unable to retrieve the quizzes'});
+      res.status(500).json({error: 'We are sorry, we were unable to retrieve the quizzes.'});
     });
 });
 
@@ -53,14 +53,119 @@ app.get('/quizzes/:id', (req, res) =>{
     .then(quiz => res.json(quiz.apiRepr()))
     .catch(err =>{
       console.error(err);
-      res.status(500).json({error: 'We are sorry, we were unable to retrieve the quiz'});
+      res.status(500).json({error: 'We are sorry, we were unable to retrieve the quiz.'});
     });
 });
 
 app.post('/users', (req, res) =>{
-  
-})
+  User
+    .create({
+      userName: req.body.userName
+    })
+    .then(user => res.status(201).json(user.apiRepr))
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to add the user.'});
+    });
+});
 
+app.post('/quizzes', (req, res) =>{
+  const requiredFields = ['name', 'passingScore', 'questions'];
+  for (let i=0; i<requiredFields.length; i++) {
+    const field = requiredFields[i];
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`;
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  }
+
+  Quiz
+    .create({
+      name: req.body.name,
+      passingScore: req.body.passingScore,
+      questions: req.body.questions
+    })
+    .then(quiz => res.status(201).json(quiz.apiRepr()))
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to add the quiz.'});
+    });
+});
+
+app.put('/users/:id', (req, res) =>{
+  if (!(req.params.id && req.body.id === req.body.id)) {
+    res.status(400).json({
+      error: 'Request path id and request body id values must match'
+    });
+  }
+
+  const updated = {};
+  const updateableFields = ['userName', 'quizzes'];
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+
+  User
+    .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
+    .then(updateUser => res.status(201).json(updateUser.apiRepr()))
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to update the user.'});
+    });
+});
+
+app.put('/quizzes/:id', (req, res) =>{
+  if (!(req.params.id && req.body.id === req.body.id)) {
+    res.status(400).json({
+      error: 'Request path id and request body id values must match'
+    });
+  }
+
+  const updated = {};
+  const updateableFields = ['name', 'passingScore', 'questions'];
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+
+  Quiz
+    .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
+    .then(updateQuiz => res.status(201).json(updateQuiz.apiRepr()))
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to update the quiz.'});
+    });
+});
+
+app.delete('/users', (req, res) =>{
+  User
+    .findByIdAndRemove(req.params.id)
+    .then(() => {
+      console.log(`Deleted user with id \`${req.params.id}\``);
+      res.status(204).end();
+    })
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to remove the user.'});
+    });
+});
+
+app.delete('/quizzes', (req, res) =>{
+  User
+    .findByIdAndRemove(req.params.id)
+    .then(() => {
+      console.log(`Deleted quiz with id \`${req.params.id}\``);
+      res.status(204).end();
+    })
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to remove the quiz.'});
+    });
+});
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
