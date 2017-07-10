@@ -57,6 +57,9 @@ app.get('/quizzes/:id', (req, res) =>{
     });
 });
 
+app.post('/users', (req, res) =>{
+  
+})
 
 
 // Serve the built client
