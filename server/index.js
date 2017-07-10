@@ -1,9 +1,62 @@
+'use strict';
+
 const path = require('path');
 const express = require('express');
+const mongoose = require('mongoose');
+
+const {User, Quiz} = require('./models');
 
 const app = express();
 
 // API endpoints go here!
+app.get('/users', (req, res) =>{
+  User
+    .find()
+    .then(users =>{
+      res.json(users.map((user)=>{
+        return user.apiRepr();
+      }));
+    })
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to retrieve the users.'});
+    });
+});
+
+app.get('/users/:id', (req, res) =>{
+  User
+    .findById(req.params.id)
+    .then(user => res.json(user.apiRepr()))
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to retrieve the user.'});
+    });
+});
+
+app.get('/quizzes', (req, res) =>{
+  Quiz
+    .find()
+    .then(quizzes =>{
+      res.json(quizzes.map((quiz =>{
+        return quiz.apiRepr();
+      })));
+    })
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to retrieve the quizzes'});
+    });
+});
+
+app.get('/quizzes/:id', (req, res) =>{
+  Quiz
+    .findById(req.params.id)
+    .then(quiz => res.json(quiz.apiRepr()))
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to retrieve the quiz'});
+    });
+});
+
 
 
 // Serve the built client
