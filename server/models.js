@@ -3,12 +3,8 @@
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
-  userName: {type: String},
-  quizzes: {type: Array, default:[{
-    name: {type: String},
-    status: {type: String},
-    score: {type: Number}
-  }]}
+  userName: String,
+  quizzes: Array
 });
 
 userSchema.methods.apiRepr = function() {
@@ -19,13 +15,9 @@ userSchema.methods.apiRepr = function() {
 };
 
 const quizSchema = mongoose.Schema({
-  name: {type: String},
-  passingScore: {type: Number},
-  questions: {type: Array, default: [{
-    question: {type: String},
-    correctAnswer: {type: String},
-    allAnswers: {type: Array, default:[]}
-  }]}
+  name: String,
+  passingScore: Number,
+  questions: Array
 });
 
 quizSchema.methods.apiRepr = function () {

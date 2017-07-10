@@ -3,13 +3,24 @@
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
 const {User, Quiz} = require('./models');
+const {DATABASE_URL, PORT} = require('./config');
 
 const app = express();
 
+
+app.use(morgan('common'));
+app.use(bodyParser.json());
+app.use(express.static('./'));
+mongoose.Promise = global.Promise;
+
+
 // API endpoints go here!
 app.get('/users', (req, res) =>{
+  console.log("this is the users going through without API");
   User
     .find()
     .then(users =>{
@@ -33,10 +44,12 @@ app.get('/users/:id', (req, res) =>{
     });
 });
 
-app.get('/quizzes', (req, res) =>{
+app.get('/api/quizzes', (req, res) =>{
+  console.log("this is the quizzes going through with API");
   Quiz
     .find()
     .then(quizzes =>{
+      console.log("Then has been hit");
       res.json(quizzes.map((quiz =>{
         return quiz.apiRepr();
       })));
@@ -58,6 +71,7 @@ app.get('/quizzes/:id', (req, res) =>{
 });
 
 app.post('/users', (req, res) =>{
+  console.log("user endpoint has been hit");
   User
     .create({
       userName: req.body.userName
@@ -178,12 +192,22 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 });
 
 let server;
-function runServer(port=3001) {
-    return new Promise((resolve, reject) => {
-        server = app.listen(port, () => {
-            resolve();
-        }).on('error', reject);
+function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(databaseUrl, err => {
+      if (err) {
+        return reject(err);
+      }
+      server = app.listen(port, () => {
+        console.log(`Your app is listening on port ${port}`);
+        resolve();
+      })
+      .on('error', err => {
+        mongoose.disconnect();
+        reject(err);
+      });
     });
+  });
 }
 
 function closeServer() {
