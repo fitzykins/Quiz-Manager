@@ -4,7 +4,12 @@ const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
   userName: String,
-  quizzes: Array
+  quizzes: [{
+    quiz: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz', required: [true,'No quiz id found']},
+    status: { type: String, enum:['Pass', 'Fail', 'Not Taken'] },
+    score: Number,
+    date: Date
+  }]
 });
 
 userSchema.methods.apiRepr = function() {
@@ -17,7 +22,12 @@ userSchema.methods.apiRepr = function() {
 const quizSchema = mongoose.Schema({
   name: String,
   passingScore: Number,
-  questions: Array
+  questions: [{
+    question: String,
+    score: Number,
+    correctAnswer: String,
+    totalAnswers: [String]
+  }]
 });
 
 quizSchema.methods.apiRepr = function () {
