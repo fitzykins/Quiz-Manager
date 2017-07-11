@@ -1,0 +1,69 @@
+[
+  {
+    "id": "5965184c80699516fc8b2fda",
+    "name": "Quiz One",
+    "passingScore": 80,
+    "questions": [
+      {
+        "score": 10,
+        "question": "This is the first question",
+        "correctAnswer": "Choose Me",
+        "_id": "5965184c80699516fc8b2fdf",
+        "totalAnswers": [
+          "Red Herring",
+          "Choose Me",
+          "Don't Choose Me",
+          "Choose me?"
+        ]
+      },
+      {
+        "score": 10,
+        "question": "Which was an incorrect answer from the previous set?",
+        "correctAnswer": "Red Herring",
+        "_id": "5965184c80699516fc8b2fde",
+        "totalAnswers": [
+          "Red Herring",
+          "Blue Herring",
+          "Green Herring",
+          "Light Red Herring"
+        ]
+      },
+      {
+        "score": 10,
+        "question": "This is the Question Three",
+        "correctAnswer": "Don't Choose Me",
+        "_id": "5965184c80699516fc8b2fdd",
+        "totalAnswers": [
+          "Red Herring",
+          "Choose Me",
+          "Don't Choose Me",
+          "Choose me?"
+        ]
+      },
+      {
+        "score": 10,
+        "question": "This is the fourth question",
+        "correctAnswer": "Choose me?",
+        "_id": "5965184c80699516fc8b2fdc",
+        "totalAnswers": [
+          "Red Herring",
+          "Choose Me",
+          "Don't Choose Me",
+          "Choose me?"
+        ]
+      },
+      {
+        "score": 10,
+        "question": "This is the Final question",
+        "correctAnswer": "Red Herring",
+        "_id": "5965184c80699516fc8b2fdb",
+        "totalAnswers": [
+          "Red Herring",
+          "Choose Me",
+          "Don't Choose Me",
+          "Choose me?"
+        ]
+      }
+    ]
+  }
+]

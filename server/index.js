@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -190,31 +192,32 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 });
 
 let server;
-function runServer(port=3001) {
-  return new Promise((resolve, reject) => {
-    server = app.listen(port, () => {
-      resolve();
-    }).on('error', reject);
-  });
-}
 // function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+//   console.log('This is the database URL', DATABASE_URL);
 //   return new Promise((resolve, reject) => {
-//     mongoose.connect(databaseUrl, err => {
-//       if (err) {
-//         return reject(err);
-//       }
-//       server = app.listen(port, () => {
-//         console.log(`Your app is listening on port ${port}`);
-//         resolve();
-//       })
-//       .on('error', err => {
-//         mongoose.disconnect();
-//         reject(err);
-//       });
-//     });
+//     server = app.listen(port, () => {
+//       resolve();
+//     }).on('error', reject);
 //   });
-//
 // }
+function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(databaseUrl, err => {
+      if (err) {
+        return reject(err);
+      }
+      server = app.listen(port, () => {
+        console.log(`Your app is listening on port ${port}`);
+        resolve();
+      })
+      .on('error', err => {
+        mongoose.disconnect();
+        reject(err);
+      });
+    });
+  });
+
+}
 
 function closeServer() {
   return new Promise((resolve, reject) => {
