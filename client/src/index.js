@@ -5,14 +5,14 @@ import { createStore, applyMiddleware } from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import reducer from './reducers/quiz-reducer';
-import Login from './components/login';
+import App from './components/app';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
 
 ReactDOM.render(
   <Provider store={store}>
-   <Login />
+   <App />
   </Provider>,
   document.getElementById('root')
 );
