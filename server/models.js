@@ -6,9 +6,9 @@ const userSchema = mongoose.Schema({
   userName: String,
   quizzes: [{
     id: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz', required: [true,'No quiz id found']},
-    //status: { type: String, enum:['Pass', 'Fail', 'Not Taken'] },
+    status: { type: String, enum:['Passed', 'Failed', 'Not Taken'] },
     quiz: String,
-    status: String,
+    // status: String,
     score: Number
   }]
 });
