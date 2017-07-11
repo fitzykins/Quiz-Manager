@@ -1,0 +1,30 @@
+[
+  {
+    "id": "5964e504fbef5a2d3422629d",
+    "userName": "UserTwo",
+    "quizzes": [
+      {
+        "quiz": "Quiz One",
+        "status": "Not Taken",
+        "score": 0,
+        "id": "5965184c80699516fc8b2fda"
+      }
+    ]
+  },
+  {
+    "id": "5964ffb250be504f007f1be6",
+    "userName": "UserOne",
+    "quizzes": [
+      {
+        "quiz": "Quiz One",
+        "status": "Not Taken",
+        "score": 0,
+        "id": "5965184c80699516fc8b2fda"
+      }
+    ]
+  },
+  {
+  "id": "1",
+  "userName": "Admin"
+  }
+]

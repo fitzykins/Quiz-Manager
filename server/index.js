@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -191,6 +193,7 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 
 let server;
 function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+  console.log("This is the database URL", DATABASE_URL);
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, err => {
       if (err) {
