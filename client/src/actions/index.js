@@ -60,7 +60,6 @@ export const fetchUser = userId => dispatch => {
     }
     return response.json();
   }).then(user => {
-    console.log(user);
     return dispatch(fetchUserSuccess(user));
   }).catch(error =>
        dispatch(fetchError(error))

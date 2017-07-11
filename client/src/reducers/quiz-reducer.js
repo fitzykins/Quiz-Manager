@@ -31,7 +31,6 @@ export default (state=initialState, action) => {
       error: null
     });
   }else if (action.type === FETCH_USER_SUCCESS) {
-    console.log('In the reducer', action.user);
     const userName = action.user.userName;
     const id = action.user.id;
     const quizzes = action.user.quizzes;

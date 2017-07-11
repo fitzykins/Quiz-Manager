@@ -10,7 +10,7 @@ class Login extends Component {
     const user = this.props.users.find(user => {
       return user.userName === this.input.value;
     });
-    if(user.userName === 'admin') {
+    if(user.userName === 'Admin') {
       this.props.history.push(`/admin/${user.id}`);
     }else {
       this.props.history.push(`/user/${user.id}`);
@@ -22,8 +22,8 @@ class Login extends Component {
   }
 
   render () {
+    console.log(this.props);
     if(this.props.users) {
-      console.log(this.props.users);
       const options = this.props.users.map((user, index) => (
         <option key={index} value={user.userName}>{user.userName}</option>
       ));
