@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {initial} from '../actions';
+import {fetchUsers} from '../actions';
 
 
 
@@ -15,15 +15,15 @@ class Login extends Component {
     }else {
       this.props.history.push(`/user/${user.id}`);
     }
-
   }
 
   componentDidMount() {
-    this.props.dispatch(initial());
+    this.props.dispatch(fetchUsers());
   }
 
   render () {
     if(this.props.users) {
+      console.log(this.props.users);
       const options = this.props.users.map((user, index) => (
         <option key={index} value={user.userName}>{user.userName}</option>
       ));

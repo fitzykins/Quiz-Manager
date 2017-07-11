@@ -192,15 +192,8 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 });
 
 let server;
-// function runServer(databaseUrl=DATABASE_URL, port=PORT) {
-//   console.log('This is the database URL', DATABASE_URL);
-//   return new Promise((resolve, reject) => {
-//     server = app.listen(port, () => {
-//       resolve();
-//     }).on('error', reject);
-//   });
-// }
-function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+function runServer(databaseUrl=DATABASE_URL, port=3001) {
+  console.log('URL is', databaseUrl, 'Port is', port);
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, err => {
       if (err) {

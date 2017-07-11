@@ -1,23 +1,27 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getUser} from '../actions';
+import {fetchUser} from '../actions';
 
 
 
 class UserPage extends Component {
+
   componentDidMount() {
-    this.props.dispatch(getUser(this.props.match.params.userId));
+    this.props.dispatch(fetchUser(this.props.match.params.userId));
   }
 
   render () {
+    console.log(this.props);
       return (
-        <h3>{this.props.username}</h3>
+        <h3>{this.props.userName}</h3>
       )
     }
   }
 
 const mapStateToProps= state =>({
-  username: state.username
+  id: state.id,
+  userName: state.userName,
+  quizzes: state.quizzes
 });
 
 export default connect(mapStateToProps)(UserPage);
