@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import Login from './login';
 import UserPage from './user-page';
 import AdminPage from './admin-page';
+import QuizPage from './quiz-page';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
           <Route exact path="/" component={Login}/>
           <Route exact path="/admin/:adminId" component={AdminPage} />
           <Route exact path="/user/:userId" component={UserPage} />
+          <Route exact path="/quizzes/:quizId" component={QuizPage} />
         </main>
       </div>
       </Router>
