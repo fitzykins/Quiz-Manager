@@ -19,10 +19,6 @@ mongoose.Promise = global.Promise;
 
 
 // API endpoints go here!
-
-||||||| merged common ancestors
-
-=======
 app.get('/api/users', (req, res) =>{
   User
     .find()
@@ -200,25 +196,25 @@ function runServer(port=3001) {
       resolve();
     }).on('error', reject);
   });
-
-function runServer(databaseUrl=DATABASE_URL, port=PORT) {
-  return new Promise((resolve, reject) => {
-    mongoose.connect(databaseUrl, err => {
-      if (err) {
-        return reject(err);
-      }
-      server = app.listen(port, () => {
-        console.log(`Your app is listening on port ${port}`);
-        resolve();
-      })
-      .on('error', err => {
-        mongoose.disconnect();
-        reject(err);
-      });
-    });
-  });
-
 }
+// function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+//   return new Promise((resolve, reject) => {
+//     mongoose.connect(databaseUrl, err => {
+//       if (err) {
+//         return reject(err);
+//       }
+//       server = app.listen(port, () => {
+//         console.log(`Your app is listening on port ${port}`);
+//         resolve();
+//       })
+//       .on('error', err => {
+//         mongoose.disconnect();
+//         reject(err);
+//       });
+//     });
+//   });
+//
+// }
 
 function closeServer() {
   return new Promise((resolve, reject) => {

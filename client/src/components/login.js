@@ -7,11 +7,13 @@ import {initial} from '../actions';
 class Login extends Component {
   goToUser(e) {
     e.preventDefault();
-    const user = this.input.value;
-    if(user === 'admin') {
-      this.props.history.push(`/admin/${user}`);
+    const user = this.props.users.find(user => {
+      return user.userName === this.input.value;
+    });
+    if(user.userName === 'admin') {
+      this.props.history.push(`/admin/${user.id}`);
     }else {
-      this.props.history.push(`/user/${user}`);
+      this.props.history.push(`/user/${user.id}`);
     }
 
   }
@@ -23,7 +25,7 @@ class Login extends Component {
   render () {
     if(this.props.users) {
       const options = this.props.users.map((user, index) => (
-        <option key={index} value={user}>{user}</option>
+        <option key={index} value={user.userName}>{user.userName}</option>
       ));
       return (
         <form onSubmit={e => this.goToUser(e)} >
