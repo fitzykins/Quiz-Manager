@@ -19,8 +19,7 @@ mongoose.Promise = global.Promise;
 
 
 // API endpoints go here!
-app.get('/users', (req, res) =>{
-  console.log("this is the users going through without API");
+app.get('/api/users', (req, res) =>{
   User
     .find()
     .then(users =>{
@@ -34,7 +33,7 @@ app.get('/users', (req, res) =>{
     });
 });
 
-app.get('/users/:id', (req, res) =>{
+app.get('/api/users/:id', (req, res) =>{
   User
     .findById(req.params.id)
     .then(user => res.json(user.apiRepr()))
@@ -45,11 +44,9 @@ app.get('/users/:id', (req, res) =>{
 });
 
 app.get('/api/quizzes', (req, res) =>{
-  console.log("this is the quizzes going through with API");
   Quiz
     .find()
     .then(quizzes =>{
-      console.log("Then has been hit");
       res.json(quizzes.map((quiz =>{
         return quiz.apiRepr();
       })));
@@ -60,7 +57,7 @@ app.get('/api/quizzes', (req, res) =>{
     });
 });
 
-app.get('/quizzes/:id', (req, res) =>{
+app.get('/api/quizzes/:id', (req, res) =>{
   Quiz
     .findById(req.params.id)
     .then(quiz => res.json(quiz.apiRepr()))
@@ -70,11 +67,11 @@ app.get('/quizzes/:id', (req, res) =>{
     });
 });
 
-app.post('/users', (req, res) =>{
-  console.log("user endpoint has been hit");
+app.post('/api/users', (req, res) =>{
   User
     .create({
-      userName: req.body.userName
+      userName: req.body.userName,
+      quizzes: req.body.quizzes
     })
     .then(user => res.status(201).json(user.apiRepr))
     .catch(err =>{
@@ -83,7 +80,7 @@ app.post('/users', (req, res) =>{
     });
 });
 
-app.post('/quizzes', (req, res) =>{
+app.post('/api/quizzes', (req, res) =>{
   const requiredFields = ['name', 'passingScore', 'questions'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -107,7 +104,7 @@ app.post('/quizzes', (req, res) =>{
     });
 });
 
-app.put('/users/:id', (req, res) =>{
+app.put('/api/users/:id', (req, res) =>{
   if (!(req.params.id && req.body.id === req.body.id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
@@ -131,7 +128,7 @@ app.put('/users/:id', (req, res) =>{
     });
 });
 
-app.put('/quizzes/:id', (req, res) =>{
+app.put('/api/quizzes/:id', (req, res) =>{
   if (!(req.params.id && req.body.id === req.body.id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
@@ -155,7 +152,7 @@ app.put('/quizzes/:id', (req, res) =>{
     });
 });
 
-app.delete('/users', (req, res) =>{
+app.delete('/api/users/:id', (req, res) =>{
   User
     .findByIdAndRemove(req.params.id)
     .then(() => {
@@ -168,8 +165,8 @@ app.delete('/users', (req, res) =>{
     });
 });
 
-app.delete('/quizzes', (req, res) =>{
-  User
+app.delete('/api/quizzes/:id', (req, res) =>{
+  Quiz
     .findByIdAndRemove(req.params.id)
     .then(() => {
       console.log(`Deleted quiz with id \`${req.params.id}\``);

@@ -5,15 +5,17 @@ const mongoose = require('mongoose');
 const userSchema = mongoose.Schema({
   userName: String,
   quizzes: [{
-    quiz: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz', required: [true,'No quiz id found']},
-    status: { type: String, enum:['Pass', 'Fail', 'Not Taken'] },
-    score: Number,
-    date: Date
+    //quiz: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz', required: [true,'No quiz id found']},
+    //status: { type: String, enum:['Pass', 'Fail', 'Not Taken'] },
+    quiz: String,
+    status: String,
+    score: Number
   }]
 });
 
 userSchema.methods.apiRepr = function() {
   return {
+    id: this._id,
     userName: this.userName,
     quizzes: this.quizzes
   };
@@ -32,6 +34,7 @@ const quizSchema = mongoose.Schema({
 
 quizSchema.methods.apiRepr = function () {
   return {
+    id: this._id,
     name: this.name,
     passingScore: this.passingScore,
     questions: this.questions
