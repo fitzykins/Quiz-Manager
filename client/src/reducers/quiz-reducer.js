@@ -1,5 +1,10 @@
-// import {INITIAL, GET_USER} from '../actions';
-import {FETCH_REQUEST,FETCH_USERS_SUCCESS,FETCH_USER_SUCCESS,FETCH_QUIZ_SUCCESS,FETCH_ERROR,SET_USER} from '../actions';
+import {FETCH_REQUEST,
+  FETCH_USERS_SUCCESS,
+  FETCH_USER_SUCCESS,
+  FETCH_QUIZ_SUCCESS,
+  FETCH_ERROR,
+  SIGN_OUT} from '../actions';
+
 const initialState = {
   users: [],
   loading: false,
@@ -11,21 +16,14 @@ const initialState = {
   questions: [],
   passingScore: null,
   quizName: null,
+  count: 0,
   score: 0,
-  userBeingViewed: null
+  selectedAnswer: null,
+  showQuiz: true,
+  showResults: false
 };
 
 export default (state=initialState, action) => {
-  // if(action.type === INITIAL) {
-  //   return Object.assign({}, state, {
-  //     users: [{id: 1, userName: 'admin'}, {id: 2, userName: 'pass'}, {id: 3, userName: 'fail'}]
-  //   });
-  // }else if(action.type === GET_USER) {
-  //   const userId = action.username;
-  //   return Object.assign({}, state, {
-  //     userId
-  //   })
-  // }
   if(action.type === FETCH_REQUEST) {
     return Object.assign({}, state, {
       loading: true
@@ -60,6 +58,24 @@ export default (state=initialState, action) => {
     return Object.assign({}, state, {
       loading: false,
       error: action.error
+    });
+  }else if (action.type === SIGN_OUT) {
+    return Object.assign({}, state, {
+      users: [],
+      loading: false,
+      error: null,
+      userName: null,
+      userId: null,
+      quizzes: null,
+      quizId: null,
+      questions: [],
+      passingScore: null,
+      quizName: null,
+      count: 0,
+      score: 0,
+      selectedAnswer: null,
+      showQuiz: true,
+      showResults: false
     });
   }
   return state;

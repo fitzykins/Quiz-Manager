@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom';
 class AdminView extends Component {
 
   render() {
-    console.log(this.props);
     if(this.props.users.length < 1 ) {
       return <p>This is Broken</p>;
     }
