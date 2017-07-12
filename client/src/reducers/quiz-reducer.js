@@ -1,5 +1,5 @@
 // import {INITIAL, GET_USER} from '../actions';
-import {FETCH_REQUEST,FETCH_USERS_SUCCESS,FETCH_USER_SUCCESS,FETCH_QUIZ_SUCCESS,FETCH_ERROR,INCREMENT_COUNT} from '../actions';
+import {FETCH_REQUEST,FETCH_USERS_SUCCESS,FETCH_USER_SUCCESS,FETCH_QUIZ_SUCCESS,FETCH_ERROR,INCREMENT_SCORE,SET_ANSWER} from '../actions';
 const initialState = {
   users: [],
   loading: false,
@@ -12,7 +12,8 @@ const initialState = {
   passingScore: null,
   quizName: null,
   score: 0,
-  count: 0
+  count: 0,
+  selectedAnswer: null
 };
 
 export default (state=initialState, action) => {
@@ -46,7 +47,6 @@ export default (state=initialState, action) => {
       quizzes
     });
   }else if (action.type=== FETCH_QUIZ_SUCCESS) {
-    console.log("Quiz", action.quiz);
     const quizName = action.quiz.name;
     const quizId = action.quiz.id;
     const passingScore = action.quiz.passingScore;
@@ -62,10 +62,15 @@ export default (state=initialState, action) => {
       loading: false,
       error: action.error
     });
-  }else if(action.type === INCREMENT_COUNT){
+  }else if(action.type === INCREMENT_SCORE) {
     console.log(action);
     return Object.assign({}, state, {
+      score: action.score,
       count: action.count
+    });
+  }else if(action.type === SET_ANSWER) {
+    return Object.assign({}, state, {
+      selectedAnswer: action.answer
     });
   }
   return state;
