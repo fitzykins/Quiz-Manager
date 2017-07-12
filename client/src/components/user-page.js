@@ -3,8 +3,6 @@ import {connect} from 'react-redux';
 import {fetchUser} from '../actions';
 import {Link} from 'react-router-dom';
 
-
-
 class UserPage extends Component {
 
   componentWillMount() {
@@ -12,7 +10,6 @@ class UserPage extends Component {
   }
 
   render () {
-    console.log(this.props.quizzes);
     if(!this.props.quizzes) {
       return <p>anything</p>;
     }
