@@ -8,6 +8,14 @@
 //   type: GET_USER,
 //   userId
 // });
+export const INCREMENT_COUNT = 'INCREMENT COUNT';
+export const incrementCount = count => ({
+  type: INCREMENT_COUNT,
+  count
+});
+
+export const INCREMENT_SCORE = 'INCREMENT SCORE';
+export const 
 
 export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const fetchRequest = () => ({

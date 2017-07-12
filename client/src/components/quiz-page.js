@@ -13,7 +13,6 @@ class QuizPage extends Component {
   }
 
   render () {
-    console.log(this.props);
       return (
         <div className="quiz">
           <h2>{this.props.name}</h2>
