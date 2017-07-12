@@ -1,14 +1,7 @@
-// export const INITIAL = "INITIAL";
-// export const initial = () => ({
-//   type:INITIAL
-// });
-//
-// export const GET_USER = "GET_USER";
-// export const getUser = userId => ({
-//   type: GET_USER,
-//   userId
-// });
-
+export const SIGN_OUT = 'SIGN_OUT';
+export const signOut = () => ({
+  type: SIGN_OUT
+});
 export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const fetchRequest = () => ({
   type: FETCH_REQUEST

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchUsers} from '../actions';
-
-
+import {fetchUsers,signOut} from '../actions';
 
 class Login extends Component {
   goToUser(e) {
@@ -18,13 +16,14 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    // this.props.dispatch(resetState());
+    this.props.dispatch(signOut());
     this.props.dispatch(fetchUsers());
   }
 
   render () {
     if(this.props.userId){
       console.log('problem', this.props.userId);
+      console.log('state', this.props.state);
     }
     if(this.props.users) {
       const options = this.props.users.map((user, index) => (
@@ -42,7 +41,8 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps= state =>({
+const mapStateToProps = state =>({
+  state: state,
   userId: state.userId,
   users: state.users
 });
