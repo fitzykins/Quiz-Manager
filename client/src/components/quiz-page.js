@@ -25,6 +25,7 @@ class QuizPage extends Component {
 }
 const mapStateToProps= state =>({
   id: state.quizId,
+  userId: state.userId,
   name: state.quizName,
   passingScore: state.passingScore,
   questions: state.questions,
