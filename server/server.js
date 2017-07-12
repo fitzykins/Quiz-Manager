@@ -109,9 +109,9 @@ app.post('/api/quizzes', (req, res) =>{
 
 app.get('/api/validatescore/:name/:id', (req, res)=>{
   User
-    .update({_id:req.params.id, "quizzes.quiz":req.params.name},
-    {$set: {"quizzes.$.status":"Pass"}, $inc: {"quizzes.$.score":1}})
-    .then(updateQuiz => 
+    .update({_id:req.params.id, 'quizzes.quiz':req.params.name},
+    {$set: {'quizzes.$.status':'Pass'}, $inc: {'quizzes.$.score':1}})
+    .then(updateQuiz =>
     res.status(201).json(updateQuiz))
     .catch(err =>{
       console.error(err);
@@ -205,8 +205,8 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 });
 
 let server;
-function runServer(databaseUrl=DATABASE_URL, port=PORT) {
-  console.log("This is the database URL", DATABASE_URL);
+function runServer(databaseUrl=DATABASE_URL, port=3001) {
+  console.log('This is the database URL', DATABASE_URL);
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, err => {
       if (err) {
