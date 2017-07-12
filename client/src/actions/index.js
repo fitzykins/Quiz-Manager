@@ -26,6 +26,12 @@ export const fetchUserSuccess = user => ({
   user
 });
 
+export const FETCH_QUIZ_SUCCESS = 'FETCH_QUIZ_SUCCESS';
+export const fetchQuizSuccess = quiz => ({
+  type: FETCH_QUIZ_SUCCESS,
+  quiz
+});
+
 export const FETCH_ERROR = 'FETCH_ERROR';
 export const fetchError = error => ({
   type: FETCH_ERROR,
@@ -61,6 +67,23 @@ export const fetchUser = userId => dispatch => {
     return response.json();
   }).then(user => {
     return dispatch(fetchUserSuccess(user));
+  }).catch(error =>
+       dispatch(fetchError(error))
+     );
+};
+
+export const fetchQuiz = quizId => dispatch => {
+  const url = `http://localhost:8080/api/quizzes/${quizId}`;
+
+  dispatch(fetchRequest());
+
+  return fetch(url).then(response => {
+    if(!response.ok) {
+      return Promise.reject(response.statusText);
+    }
+    return response.json();
+  }).then(quiz => {
+    return dispatch(fetchQuizSuccess(quiz));
   }).catch(error =>
        dispatch(fetchError(error))
      );

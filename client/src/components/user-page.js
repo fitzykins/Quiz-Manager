@@ -8,17 +8,17 @@ import {Link} from 'react-router-dom';
 class UserPage extends Component {
 
   componentWillMount() {
-    console.log('User Id', this.props.match.params.userId);
     this.props.dispatch(fetchUser(this.props.match.params.userId));
   }
 
   render () {
+    console.log(this.props.quizzes);
     if(!this.props.quizzes) {
       return <p>anything</p>;
     }
     const quizzes = this.props.quizzes.map((quiz,index) => (
       <li key={index}>
-        <Link to={`/quizzes/${quiz.id}`}>
+        <Link to={`/quizzes/5965197a1aa2679a1295757d`}>
          {quiz.quiz}
         </Link>
         <p>Status: {quiz.status}</p>
@@ -35,7 +35,7 @@ class UserPage extends Component {
   }
 }
 const mapStateToProps= state =>({
-  id: state.id,
+  userId: state.userId,
   userName: state.userName,
   quizzes: state.quizzes
 });

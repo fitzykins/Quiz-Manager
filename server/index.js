@@ -60,6 +60,7 @@ app.get('/api/quizzes', (req, res) =>{
 });
 
 app.get('/api/quizzes/:id', (req, res) =>{
+  console.log('heya');
   Quiz
     .findById(req.params.id)
     .then(quiz => res.json(quiz.apiRepr()))
