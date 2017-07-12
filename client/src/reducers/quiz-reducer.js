@@ -1,5 +1,5 @@
 // import {INITIAL, GET_USER} from '../actions';
-import {FETCH_REQUEST,FETCH_USERS_SUCCESS,FETCH_USER_SUCCESS,FETCH_QUIZ_SUCCESS,FETCH_ERROR,INCREMENT_SCORE,SET_ANSWER} from '../actions';
+import {FETCH_REQUEST,FETCH_USERS_SUCCESS,FETCH_USER_SUCCESS,FETCH_QUIZ_SUCCESS,FETCH_ERROR,INCREMENT_SCORE,SET_ANSWER,TOGGLE_QUIZ_PAGE} from '../actions';
 const initialState = {
   users: [],
   loading: false,
@@ -13,7 +13,9 @@ const initialState = {
   quizName: null,
   score: 0,
   count: 0,
-  selectedAnswer: null
+  selectedAnswer: null,
+  showQuiz: true,
+  showResults: false
 };
 
 export default (state=initialState, action) => {
@@ -72,6 +74,11 @@ export default (state=initialState, action) => {
     return Object.assign({}, state, {
       selectedAnswer: action.answer
     });
+  }else if(action.type === TOGGLE_QUIZ_PAGE) {
+    return Object.assign({}, state, {
+      showQuiz: !state.showQuiz,
+      showResults: !state.showResults
+    })
   }
   return state;
 

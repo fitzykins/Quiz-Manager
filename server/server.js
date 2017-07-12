@@ -107,10 +107,10 @@ app.post('/api/quizzes', (req, res) =>{
     });
 });
 
-app.get('/api/validatescore/:name/:id', (req, res)=>{
+app.get('/api/updateuserquiz/:name/:id/:score/:status', (req, res)=>{
   User
-    .update({_id:req.params.id, "quizzes.quiz":req.params.name},
-    {$set: {"quizzes.$.status":"Pass"}, $inc: {"quizzes.$.score":1}})
+    .update({_id:req.params.id, 'quizzes.quiz':req.params.name},
+    {$set: {'quizzes.$.status':req.params.status}, 'quizzes.$.score':req.params.score})
     .then(updateQuiz => 
     res.status(201).json(updateQuiz))
     .catch(err =>{

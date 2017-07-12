@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {incrementScore, setAnswer} from '../actions';
+import {incrementScore, setAnswer, toggleQuizPage} from '../actions';
 // import {Link} from 'react-router-dom';
 
 
@@ -14,7 +14,7 @@ class QuestionPage extends Component {
     const totalLength = this.props.questions.length;
     let currentScore = this.props.score;
     if(currentCount >= totalLength){
-      console.log("quiz is complete");
+      this.props.dispatch(toggleQuizPage());
     }
     if(answer === this.props.questions[this.props.count].correctAnswer){
       currentScore += 1;

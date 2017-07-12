@@ -9,18 +9,24 @@
 //   userId
 // });
 
-export const INCREMENT_SCORE = 'INCREMENT SCORE';
+export const INCREMENT_SCORE = 'INCREMENT_SCORE';
 export const incrementScore = (score, count) => ({
   type: INCREMENT_SCORE,
   score,
   count  
 });
 
-export const SET_ANSWER = 'SET ANSWER';
+export const SET_ANSWER = 'SET_ANSWER';
 export const setAnswer = answer => ({
   type: SET_ANSWER,
   answer
 });
+
+export const TOGGLE_QUIZ_PAGE = 'TOGGLE_QUIZ_PAGE';
+export const toggleQuizPage = () => ({
+  type: TOGGLE_QUIZ_PAGE
+});
+
 
 export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const fetchRequest = () => ({

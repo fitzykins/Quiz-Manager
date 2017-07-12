@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchQuiz} from '../actions';
 import QuestionPage from './question-page';
+import ResultsPage from './results-page';
 // import {Link} from 'react-router-dom';
 
 
@@ -13,10 +14,20 @@ class QuizPage extends Component {
   }
 
   render () {
+
+    let results;
+    let quiz;
+    if(this.props.showResults){
+      results = <ResultsPage />
+    }
+    if(this.props.showQuiz){
+      quiz = <QuestionPage />
+    }
       return (
         <div className="quiz">
           <h2>{this.props.name}</h2>
-          <QuestionPage />
+          {quiz}
+          {results}
         </div>
 
       )
@@ -27,7 +38,10 @@ const mapStateToProps= state =>({
   name: state.quizName,
   passingScore: state.passingScore,
   questions: state.questions,
-  score: state.score
+  score: state.score,
+  showResults: state.showResults,
+  showQuiz: state.showQuiz
+
 });
 
 export default connect(mapStateToProps)(QuizPage);
