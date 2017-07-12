@@ -4,7 +4,7 @@ import {FETCH_REQUEST,
   FETCH_QUIZ_SUCCESS,
   FETCH_ERROR,
   SIGN_OUT} from '../actions';
-  
+
 const initialState = {
   users: [],
   loading: false,
@@ -16,7 +16,11 @@ const initialState = {
   questions: [],
   passingScore: null,
   quizName: null,
-  score: 0
+  count: 0,
+  score: 0,
+  selectedAnswer: null,
+  showQuiz: true,
+  showResults: false
 };
 
 export default (state=initialState, action) => {
@@ -67,7 +71,11 @@ export default (state=initialState, action) => {
       questions: [],
       passingScore: null,
       quizName: null,
-      score: 1
+      count: 0,
+      score: 0,
+      selectedAnswer: null,
+      showQuiz: true,
+      showResults: false
     });
   }
   return state;

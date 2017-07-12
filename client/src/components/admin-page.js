@@ -17,7 +17,6 @@ class AdminPage extends Component {
   }
 
   render () {
-    console.log('state in admin', this.props.state);
    const users = this.props.users.map((user, index) => {
      return (
        <li key={index}>
@@ -39,7 +38,6 @@ class AdminPage extends Component {
 }
 
 const mapStateToProps= state =>({
-  state,
   adminId: state.userId,
   adminName: state.userName,
   users: state.users.filter(user => {

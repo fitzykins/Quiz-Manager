@@ -6,8 +6,9 @@ import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import reducer from './reducers/quiz-reducer';
 import App from './components/app';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 
 ReactDOM.render(
