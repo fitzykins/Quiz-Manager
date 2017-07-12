@@ -107,3 +107,5 @@ export const fetchQuiz = quizId => dispatch => {
        dispatch(fetchError(error))
      );
 };
+
+export const sendResults

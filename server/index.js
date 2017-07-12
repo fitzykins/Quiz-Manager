@@ -7,7 +7,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const ObjectId = require('mongoose').Types.ObjectId;
 
 const {User, Quiz} = require('./models');
 const {DATABASE_URL, PORT} = require('./config');
@@ -107,7 +106,7 @@ app.post('/api/quizzes', (req, res) =>{
     });
 });
 
-app.get('/api/updateuserquiz/:name/:id/:score/:status', (req, res)=>{
+app.put('/api/updateuserquiz/:name/:id/:score/:status', (req, res)=>{
   User
     .update({_id:req.params.id, 'quizzes.quiz':req.params.name},
     {$set: {'quizzes.$.status':req.params.status}, 'quizzes.$.score':req.params.score})
@@ -205,8 +204,8 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 });
 
 let server;
-function runServer(databaseUrl=DATABASE_URL, port=PORT) {
-  console.log("This is the database URL", DATABASE_URL);
+function runServer(databaseUrl=DATABASE_URL, port=3001) {
+  console.log('URL is', databaseUrl, 'Port is', port);
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, err => {
       if (err) {
