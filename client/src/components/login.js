@@ -18,10 +18,14 @@ class Login extends Component {
   }
 
   componentDidMount() {
+    // this.props.dispatch(resetState());
     this.props.dispatch(fetchUsers());
   }
 
   render () {
+    if(this.props.userId){
+      console.log('problem', this.props.userId);
+    }
     if(this.props.users) {
       const options = this.props.users.map((user, index) => (
         <option key={index} value={user.userName}>{user.userName}</option>
@@ -39,6 +43,7 @@ class Login extends Component {
 }
 
 const mapStateToProps= state =>({
+  userId: state.userId,
   users: state.users
 });
 

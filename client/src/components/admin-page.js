@@ -16,7 +16,9 @@ class AdminPage extends Component {
    const users = this.props.users.map((user, index) => {
      return (
        <li key={index}>
-         {user.userName}
+         <Link to={`/admin/${this.props.adminId}/${user.id}`}>
+           {user.userName}
+         </Link>
        </li>
      )
    })
