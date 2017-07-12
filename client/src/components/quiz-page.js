@@ -12,15 +12,14 @@ class QuizPage extends Component {
     this.props.dispatch(fetchQuiz(this.props.match.params.quizId));
   }
 
-  render () {
+  render() {
     console.log(this.props);
-      return (
-        <div className="quiz">
-          <h2>{this.props.name}</h2>
-          <QuestionPage />
-        </div>
-
-      )
+    return (
+      <div className="quiz">
+        <h2>{this.props.name}</h2>
+        <QuestionPage />
+      </div>
+    )
   }
 }
 const mapStateToProps= state =>({

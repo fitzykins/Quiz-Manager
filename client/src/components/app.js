@@ -19,7 +19,7 @@ class App extends Component {
           <Route exact path="/admin/:adminId" component={AdminPage} />
           <Route exact path="/user/:userId" component={UserPage} />
           <Route exact path="/quizzes/:quizId" component={QuizPage} />
-          <Route exact path="/admin/:adminId/:userId" component={AdminView} />
+          <Route exact path="/admin/:adminId/:userIndex" component={AdminView} />
         </main>
       </div>
       </Router>
