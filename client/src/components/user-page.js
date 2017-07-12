@@ -18,7 +18,7 @@ class UserPage extends Component {
     }
     const quizzes = this.props.quizzes.map((quiz,index) => (
       <li key={index}>
-        <Link to={`/quizzes/5965197a1aa2679a1295757d`}>
+        <Link to={`/quizzes/${quiz.id}`}>
          {quiz.quiz}
         </Link>
         <p>Status: {quiz.status}</p>

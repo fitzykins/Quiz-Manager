@@ -6,11 +6,17 @@ import {connect} from 'react-redux';
 
 
 class QuestionPage extends Component {
-
+  //some function questions: are we keeping track of what question we're on in state?
+  //if so we'll need an action to update that and the score
 
   render () {
       return (
         <div className="question">
+         //question right here
+          <form>  //on submission call some function we check selected answer, increment score, move to next question
+           //answers here
+          </form>
+          //next button
         </div>
 
       )
