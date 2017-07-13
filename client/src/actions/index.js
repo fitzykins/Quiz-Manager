@@ -28,6 +28,10 @@ export const toggleQuizPage = () => ({
 });
 
 
+export const SIGN_OUT = 'SIGN_OUT';
+export const signOut = () => ({
+  type: SIGN_OUT
+});
 export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const fetchRequest = () => ({
   type: FETCH_REQUEST

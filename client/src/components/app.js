@@ -4,6 +4,7 @@ import Login from './login';
 import UserPage from './user-page';
 import AdminPage from './admin-page';
 import QuizPage from './quiz-page';
+import AdminView from './admin-view';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
           <Route exact path="/admin/:adminId" component={AdminPage} />
           <Route exact path="/user/:userId" component={UserPage} />
           <Route exact path="/quizzes/:quizId" component={QuizPage} />
+          <Route exact path="/admin/:adminId/:userIndex" component={AdminView} />
         </main>
       </div>
       </Router>

@@ -12,6 +12,7 @@ class QuizPage extends Component {
   componentWillMount() {
     this.props.dispatch(fetchQuiz(this.props.match.params.quizId));
   }
+<<<<<<< HEAD
   
   render () {
     let results;
@@ -30,10 +31,22 @@ class QuizPage extends Component {
         </div>
 
       )
+=======
+
+  render() {
+    console.log(this.props);
+    return (
+      <div className="quiz">
+        <h2>{this.props.name}</h2>
+        <QuestionPage />
+      </div>
+    )
+>>>>>>> origin/dev
   }
 }
 const mapStateToProps= state =>({
   id: state.quizId,
+  userId: state.userId,
   name: state.quizName,
   passingScore: state.passingScore,
   questions: state.questions,

@@ -10,9 +10,10 @@
   "dependencies": {
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-router-dom": "^4.1.1",
     "redux": "^3.7.1",
-    "redux-thunk": "^2.2.0",
-    "react-router-dom": "^4.1.1"
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

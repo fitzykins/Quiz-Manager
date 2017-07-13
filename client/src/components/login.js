@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchUsers} from '../actions';
-
-
+import {fetchUsers,signOut} from '../actions';
 
 class Login extends Component {
   goToUser(e) {
@@ -18,6 +16,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
+    this.props.dispatch(signOut());
     this.props.dispatch(fetchUsers());
   }
 
@@ -38,7 +37,7 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps= state =>({
+const mapStateToProps = state =>({
   users: state.users
 });
 
