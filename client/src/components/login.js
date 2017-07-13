@@ -21,6 +21,7 @@ class Login extends Component {
   }
 
   render () {
+    console.log(this.props.users);
     if(this.props.users) {
       const options = this.props.users.map((user, index) => (
         <option key={index} value={user.userName}>{user.userName}</option>

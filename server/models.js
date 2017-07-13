@@ -28,7 +28,6 @@ const userSchema = mongoose.Schema({
     id: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz'},
     status: { type: String, enum:['Passed', 'Failed', 'Not Taken'] },
     quiz: String,
-    // status: String,
     score: Number
   }]
 });

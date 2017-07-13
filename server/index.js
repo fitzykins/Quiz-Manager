@@ -36,6 +36,7 @@ app.get('/api/users', (req, res) =>{
 });
 
 app.get('/api/users/:id', (req, res) =>{
+  console.log("this is the id that is passed in",req.params.id)
   User
     .findById(req.params.id)
     .then(user => res.json(user.apiRepr()))
