@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {FETCH_REQUEST,
   FETCH_USERS_SUCCESS,
   FETCH_USER_SUCCESS,
@@ -8,6 +9,13 @@ import {FETCH_REQUEST,
   SET_USERNAME,
   SET_PASSWORD} from '../actions';
 
+||||||| merged common ancestors
+// import {INITIAL, GET_USER} from '../actions';
+import {FETCH_REQUEST,FETCH_USERS_SUCCESS,FETCH_USER_SUCCESS,FETCH_QUIZ_SUCCESS,FETCH_ERROR} from '../actions';
+=======
+// import {INITIAL, GET_USER} from '../actions';
+import {FETCH_REQUEST,FETCH_USERS_SUCCESS,FETCH_USER_SUCCESS,FETCH_QUIZ_SUCCESS,FETCH_ERROR,INCREMENT_SCORE,SET_ANSWER,TOGGLE_QUIZ_PAGE,FETCH_UPDATE_QUIZ_SUCCESS} from '../actions';
+>>>>>>> 0b2b816c75f8219a62bb4c5fea6f310303d3b6f9
 const initialState = {
   users: [],
   loading: false,
@@ -19,6 +27,7 @@ const initialState = {
   questions: [],
   passingScore: null,
   quizName: null,
+
   count: 0,
   score: 0,
   selectedAnswer: null,
@@ -28,6 +37,9 @@ const initialState = {
   admin: false,
   loginName: '',
   loginPass: ''
+
+  score: 0
+
 };
 
 export default (state=initialState, action) => {
@@ -60,6 +72,14 @@ export default (state=initialState, action) => {
       quizId,
       passingScore,
       questions
+    })
+  }else if(action.type === FETCH_UPDATE_QUIZ_SUCCESS) {
+    console.log("update reducer has been hit", action);
+    const quizScore = action.results.score;
+    const status = action.results.status;
+    return Object.assign({}, state, {
+      status,
+      quizScore
     })
   }else if (action.type === FETCH_ERROR) {
     return Object.assign({}, state, {
@@ -115,6 +135,22 @@ export default (state=initialState, action) => {
     return Object.assign({}, state, {
       loginPass: action.password
     });
+  }else if(action.type === INCREMENT_SCORE) {
+    return Object.assign({}, state, {
+      score: action.score,
+      count: action.count,
+      selectedAnswer: null
+    });
+  }else if(action.type === SET_ANSWER) {
+    return Object.assign({}, state, {
+      selectedAnswer: action.answer
+    });
+  }else if(action.type === TOGGLE_QUIZ_PAGE) {
+    return Object.assign({}, state, {
+      showQuiz: !state.showQuiz,
+      showResults: !state.showResults
+    })
+
   }
   return state;
 

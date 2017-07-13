@@ -106,6 +106,18 @@ app.post('/api/quizzes', (req, res) =>{
     });
 });
 
+app.put('/api/updateuserquiz/:name/:id', (req, res)=>{
+  User
+    .update({_id:req.params.id, 'quizzes.quiz':req.params.name},
+    {$set: {'quizzes.$.status':req.body.status}, 'quizzes.$.score':req.body.score})
+    .then(updateQuiz => 
+    res.status(201).json(updateQuiz))
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to update the user.'});
+    });
+});
+
 app.put('/api/users/:id', (req, res) =>{
   if (!(req.params.id && req.body.id === req.body.id)) {
     res.status(400).json({
