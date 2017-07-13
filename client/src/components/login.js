@@ -26,8 +26,8 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(signOut());
-    this.props.dispatch(fetchUsers());
+    // this.props.dispatch(signOut());
+    // this.props.dispatch(fetchUsers());
   }
 
   logIn(e) {
@@ -37,6 +37,7 @@ class Login extends Component {
 
   render () {
     if(this.props.admin) {
+      console.log(this.props.admin);
       return <AdminPage />
     }else if(this.props.loggedIn) {
       return <UserPage />

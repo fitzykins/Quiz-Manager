@@ -19,21 +19,17 @@ const app = express();
 //Basic authentication strategy
 const strategy = new BasicStrategy(function(username, password, callback) {
   let user;
-  console.log('are we here', username, password);
   User
     .findOne({userName: username})
     .exec()
     .then(_user => {
-      console.log('user', _user);
       user = _user;
       if (!user) {
         return callback(null, false, {message: 'Incorrect username'});
       }
-      console.log(user.validatePassword(password));
       return user.validatePassword(password);
     })
     .then(isValid => {
-      console.log('valid?', isValid);
       if (!isValid) {
         return callback(null, false, {message: 'Incorrect password'});
       }
@@ -64,6 +60,7 @@ passport.deserializeUser(function(id, done) {
 
 
 function loggedIn(req, res, next) {
+  console.log('this is the req', req.user);
   if(req.user) {
     next();
   } else {
@@ -94,7 +91,7 @@ app.get('/logout', (req, res) => {
 });
 
 // API endpoints go here!
-app.get('/api/users',loggedIn, (req, res) =>{
+app.get('/api/users',loggedIn, (req, res) => {
   User
     .find()
     .then(users =>{

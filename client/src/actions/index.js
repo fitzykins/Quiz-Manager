@@ -21,6 +21,12 @@ export const fetchRequest = () => ({
   type: FETCH_REQUEST
 });
 
+export const FETCH_LOGIN_SUCCESS = 'FETCH_LOGIN_SUCCESS';
+export const fetchLogInSuccess = user => ({
+  type: FETCH_LOGIN_SUCCESS,
+  user
+})
+
 export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const fetchUsersSuccess = users => ({
   type: FETCH_USERS_SUCCESS,
@@ -56,7 +62,14 @@ export const fetchLogIn = (username, password) => dispatch => {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   }).then(response => {
-    console.log(response);
+    if(!response.ok) {
+      return Promise.reject(response.statusText);
+    }
+    return response.json();
+  }).then(_user => {
+    const user = _user.user;
+    console.log('this is the user', user);
+    return dispatch(fetchLogInSuccess(user));
   }).catch(error =>
       dispatch(fetchError(error))
     );

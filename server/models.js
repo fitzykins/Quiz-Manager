@@ -25,6 +25,7 @@ quizSchema.methods.apiRepr = function () {
 
 const userSchema = mongoose.Schema({
   userName: String,
+  isAdmin: Boolean,
   password: {type: String, required: true},
   quizzes: [{
     id: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz'},
@@ -38,7 +39,8 @@ userSchema.methods.apiRepr = function() {
   return {
     id: this._id,
     userName: this.userName,
-    quizzes: this.quizzes
+    quizzes: this.quizzes,
+    isAdmin: this.isAdmin
   };
 };
 

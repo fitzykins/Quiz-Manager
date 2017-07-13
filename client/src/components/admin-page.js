@@ -7,9 +7,9 @@ import {Link} from 'react-router-dom';
 
 class AdminPage extends Component {
   componentDidMount() {
-    if(!this.props.adminId){
-      this.props.dispatch(fetchUser(this.props.match.params.adminId));
-    }
+    // if(!this.props.adminId){
+    //   this.props.dispatch(fetchUser(this.props.match.params.adminId));
+    // }
     if(this.props.users.length < 1){
       this.props.dispatch(fetchUsers());
     }

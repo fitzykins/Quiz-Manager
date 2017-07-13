@@ -3,6 +3,7 @@ import {FETCH_REQUEST,
   FETCH_USER_SUCCESS,
   FETCH_QUIZ_SUCCESS,
   FETCH_ERROR,
+  FETCH_LOGIN_SUCCESS,
   SIGN_OUT,
   SET_USERNAME,
   SET_PASSWORD} from '../actions';
@@ -64,6 +65,25 @@ export default (state=initialState, action) => {
     return Object.assign({}, state, {
       loading: false,
       error: action.error
+    });
+  }else if (action.type === FETCH_LOGIN_SUCCESS) {
+    let admin = false;
+    let loggedIn = true;
+    const userName = action.user.userName;
+    const userId = action.user.id;
+    const quizzes = action.user.quizzes;
+    if(action.user.isAdmin){
+      admin = true;
+      loggedIn = false
+    }
+    return Object.assign({}, state, {
+      userName,
+      userId,
+      quizzes,
+      admin,
+      loggedIn,
+      loginName: '',
+      loginPass: ''
     });
   }else if (action.type === SIGN_OUT) {
     return Object.assign({}, state, {
