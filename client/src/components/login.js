@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {setPassword,setUsername,fetchLogIn} from '../actions';
-import AdminPage from './admin-page';
-import UserPage from './user-page';
 // signOut,
 class Login extends Component {
   goToUser() {
