@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchUser, fetchUsers} from '../actions';
+import {fetchUsers} from '../actions';
 import {Link} from 'react-router-dom';
-
+// fetchUser,
 
 
 class AdminPage extends Component {
   componentDidMount() {
-    if(!this.props.adminId){
-      this.props.dispatch(fetchUser(this.props.match.params.adminId));
-    }
     if(this.props.users.length < 1){
       this.props.dispatch(fetchUsers());
     }
@@ -41,7 +38,7 @@ const mapStateToProps= state =>({
   adminId: state.userId,
   adminName: state.userName,
   users: state.users.filter(user => {
-    return !user.userName.toLowerCase().includes('admin');
+    return !user.isAdmin;
   })
 });
 

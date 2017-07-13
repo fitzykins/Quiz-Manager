@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchUser} from '../actions';
+// import {fetchUser} from '../actions';
 import {Link} from 'react-router-dom';
 
 class UserPage extends Component {
 
   componentWillMount() {
-    this.props.dispatch(fetchUser(this.props.match.params.userId));
+    // this.props.dispatch(fetchUser(this.props.match.params.userId));
   }
 
   render () {

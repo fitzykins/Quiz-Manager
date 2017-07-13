@@ -7,22 +7,58 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-
 const {User, Quiz} = require('./models');
 const {DATABASE_URL, PORT} = require('./config');
+const passport = require('passport');
+const {BasicStrategy} = require('passport-http');
 
 const app = express();
 
+//Basic authentication strategy
+const strategy = new BasicStrategy(function(username, password, callback) {
+  let user;
+  console.log('Username: ', username, ', Password:', password);
+  User
+    .findOne({userName: username})
+    .exec()
+    .then(_user => {
+      user = _user;
+      if (!user) {
+        return callback(null, false, {message: 'Incorrect username'});
+      }
+      return user.validatePassword(password);
+    })
+    .then(isValid => {
+      if (!isValid) {
+        return callback(null, false, {message: 'Incorrect password'});
+      }
+      else {
+        return callback(null, user);
+      }
+    })
+    .catch(err => console.log('Invalid username or password'));
+});
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(express.static('./'));
 mongoose.Promise = global.Promise;
-
+passport.use(strategy);
 
 // API endpoints go here!
-app.get('/api/users', (req, res) =>{
-  User
+// GET for user to sign in
+app.get('/api/login',
+	passport.authenticate('basic', {session: false, failureRedirect: '/'}),
+		(req, res) => {
+
+  res.json({user: req.user.apiRepr(), message: 'Sign in successful'});
+}
+);
+
+app.get('/api/users',
+  passport.authenticate('basic', {session: false, failureRedirect: '/'}),
+   (req, res) =>{
+     User
     .find()
     .then(users =>{
       res.json(users.map((user)=>{
@@ -33,21 +69,24 @@ app.get('/api/users', (req, res) =>{
       console.error(err);
       res.status(500).json({error: 'We are sorry, we were unable to retrieve the users.'});
     });
-});
+   });
 
-app.get('/api/users/:id', (req, res) =>{
-  console.log("this is the id that is passed in",req.params.id)
-  User
+app.get('/api/users/:id',
+passport.authenticate('basic', {session: false, failureRedirect: '/'}),
+ (req, res) =>{
+   User
     .findById(req.params.id)
     .then(user => res.json(user.apiRepr()))
     .catch(err =>{
       console.error(err);
       res.status(500).json({error: 'We are sorry, we were unable to retrieve the user.'});
     });
-});
+ });
 
-app.get('/api/quizzes', (req, res) =>{
-  Quiz
+app.get('/api/quizzes',
+passport.authenticate('basic', {session: false, failureRedirect: '/'}),
+ (req, res) =>{
+   Quiz
     .find()
     .then(quizzes =>{
       res.json(quizzes.map((quiz =>{
@@ -58,20 +97,23 @@ app.get('/api/quizzes', (req, res) =>{
       console.error(err);
       res.status(500).json({error: 'We are sorry, we were unable to retrieve the quizzes.'});
     });
-});
+ });
 
-app.get('/api/quizzes/:id', (req, res) =>{
-  Quiz
+app.get('/api/quizzes/:id',
+passport.authenticate('basic', {session: false, failureRedirect: '/'}),
+ (req, res) =>{
+   Quiz
     .findById(req.params.id)
     .then(quiz => res.json(quiz.apiRepr()))
     .catch(err =>{
       console.error(err);
       res.status(500).json({error: 'We are sorry, we were unable to retrieve the quiz.'});
     });
-});
+ });
 
-app.post('/api/users', (req, res) =>{
-  User
+app.post('/api/users',
+ (req, res) =>{
+   User
     .create({
       userName: req.body.userName,
       quizzes: req.body.quizzes
@@ -81,20 +123,22 @@ app.post('/api/users', (req, res) =>{
       console.error(err);
       res.status(500).json({error: 'We are sorry, we were unable to add the user.'});
     });
-});
+ });
 
-app.post('/api/quizzes', (req, res) =>{
-  const requiredFields = ['name', 'passingScore', 'questions'];
-  for (let i=0; i<requiredFields.length; i++) {
-    const field = requiredFields[i];
-    if (!(field in req.body)) {
-      const message = `Missing \`${field}\` in request body`;
-      console.error(message);
-      return res.status(400).send(message);
-    }
-  }
+app.post('/api/quizzes',
+passport.authenticate('basic', {session: false, failureRedirect: '/'}),
+ (req, res) =>{
+   const requiredFields = ['name', 'passingScore', 'questions'];
+   for (let i=0; i<requiredFields.length; i++) {
+     const field = requiredFields[i];
+     if (!(field in req.body)) {
+       const message = `Missing \`${field}\` in request body`;
+       console.error(message);
+       return res.status(400).send(message);
+     }
+   }
 
-  Quiz
+   Quiz
     .create({
       name: req.body.name,
       passingScore: req.body.passingScore,
@@ -105,71 +149,79 @@ app.post('/api/quizzes', (req, res) =>{
       console.error(err);
       res.status(500).json({error: 'We are sorry, we were unable to add the quiz.'});
     });
-});
+ });
 
-app.put('/api/updateuserquiz/:name/:id', (req, res)=>{
-  User
+app.put('/api/updateuserquiz/:name/:id',
+passport.authenticate('basic', {session: false, failureRedirect: '/'}),
+ (req, res)=>{
+   User
     .update({_id:req.params.id, 'quizzes.quiz':req.params.name},
     {$set: {'quizzes.$.status':req.body.status}, 'quizzes.$.score':req.body.score})
-    .then(updateQuiz => 
+    .then(updateQuiz =>
     res.status(201).json(updateQuiz))
     .catch(err =>{
       console.error(err);
       res.status(500).json({error: 'We are sorry, we were unable to update the user.'});
     });
-});
+ });
 
-app.put('/api/users/:id', (req, res) =>{
-  if (!(req.params.id && req.body.id === req.body.id)) {
-    res.status(400).json({
-      error: 'Request path id and request body id values must match'
-    });
-  }
+app.put('/api/users/:id',
+passport.authenticate('basic', {session: false, failureRedirect: '/'}),
+ (req, res) =>{
+   if (!(req.params.id && req.body.id === req.body.id)) {
+     res.status(400).json({
+       error: 'Request path id and request body id values must match'
+     });
+   }
 
-  const updated = {};
-  const updateableFields = ['userName', 'quizzes'];
-  updateableFields.forEach(field => {
-    if (field in req.body) {
-      updated[field] = req.body[field];
-    }
-  });
+   const updated = {};
+   const updateableFields = ['userName', 'quizzes'];
+   updateableFields.forEach(field => {
+     if (field in req.body) {
+       updated[field] = req.body[field];
+     }
+   });
 
-  User
+   User
     .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
     .then(updateUser => res.status(201).json(updateUser.apiRepr()))
     .catch(err =>{
       console.error(err);
       res.status(500).json({error: 'We are sorry, we were unable to update the user.'});
     });
-});
+ });
 
 
-app.put('/api/quizzes/:id', (req, res) =>{
-  if (!(req.params.id && req.body.id === req.body.id)) {
-    res.status(400).json({
-      error: 'Request path id and request body id values must match'
-    });
-  }
+app.put('/api/quizzes/:id',
+passport.authenticate('basic', {session: false, failureRedirect: '/'}),
+ (req, res) =>{
+   if (!(req.params.id && req.body.id === req.body.id)) {
+     res.status(400).json({
+       error: 'Request path id and request body id values must match'
+     });
+   }
 
-  const updated = {};
-  const updateableFields = ['name', 'passingScore', 'questions'];
-  updateableFields.forEach(field => {
-    if (field in req.body) {
-      updated[field] = req.body[field];
-    }
-  });
+   const updated = {};
+   const updateableFields = ['name', 'passingScore', 'questions'];
+   updateableFields.forEach(field => {
+     if (field in req.body) {
+       updated[field] = req.body[field];
+     }
+   });
 
-  Quiz
+   Quiz
     .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
     .then(updateQuiz => res.status(201).json(updateQuiz.apiRepr()))
     .catch(err =>{
       console.error(err);
       res.status(500).json({error: 'We are sorry, we were unable to update the quiz.'});
     });
-});
+ });
 
-app.delete('/api/users/:id', (req, res) =>{
-  User
+app.delete('/api/users/:id',
+passport.authenticate('basic', {session: false, failureRedirect: '/'}),
+ (req, res) =>{
+   User
     .findByIdAndRemove(req.params.id)
     .then(() => {
       console.log(`Deleted user with id \`${req.params.id}\``);
@@ -179,10 +231,12 @@ app.delete('/api/users/:id', (req, res) =>{
       console.error(err);
       res.status(500).json({error: 'We are sorry, we were unable to remove the user.'});
     });
-});
+ });
 
-app.delete('/api/quizzes/:id', (req, res) =>{
-  Quiz
+app.delete('/api/quizzes/:id',
+passport.authenticate('basic', {session: false, failureRedirect: '/'}),
+ (req, res) =>{
+   Quiz
     .findByIdAndRemove(req.params.id)
     .then(() => {
       console.log(`Deleted quiz with id \`${req.params.id}\``);
@@ -192,7 +246,7 @@ app.delete('/api/quizzes/:id', (req, res) =>{
       console.error(err);
       res.status(500).json({error: 'We are sorry, we were unable to remove the quiz.'});
     });
-});
+ });
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
