@@ -82,7 +82,7 @@ class QuestionPage extends Component {
         <section className='container'>
           <div className="question">
           {this.props.questions[i].question}
-            <form onSubmit={e => this.validateAnswer(e)} className='question-list'>
+            <form className='question-list'>
               <button className={this.props.answerOne}
                       value={this.props.questions[i].totalAnswers[0]}
                       onClick={e=> this.updateAnswer(e)} >
@@ -103,12 +103,12 @@ class QuestionPage extends Component {
                       onClick={e=> this.updateAnswer(e)} >
                 {this.props.questions[i].totalAnswers[3]}
               </button>
-              <button type='submit'>Submit</button>
+            </form>
+            <form onSubmit={e => this.validateAnswer(e)}>
+              <button className="submit" type='submit'>Submit</button>
             </form>
           </div>
-          <div className='question-number'>
-            <p>Question #{(i+1)} out of {this.props.questions.length}</p>
-          </div>
+          <p className='question-number'>Question #{(i+1)} out of {this.props.questions.length}</p>
         </section>
       )
   }

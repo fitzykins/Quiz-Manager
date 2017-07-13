@@ -6,7 +6,7 @@
   h2{
     border-bottom: 1px solid black;
     background-color: #C1DBE3;
-    margin-top: 0px;
+    margin: 0px;
   }
 
   .quiz{
@@ -15,5 +15,7 @@
     text-align: center;
     height: 400px;
     background-color: white;
+    box-sizing: border-box;
   }
+
 }

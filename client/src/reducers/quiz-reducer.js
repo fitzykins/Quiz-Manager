@@ -80,7 +80,11 @@ export default (state=initialState, action) => {
     return Object.assign({}, state, {
       score: action.score,
       count: action.count,
-      selectedAnswer: null
+      selectedAnswer: null,
+      answerOne: "answer",
+      answerTwo: "answer",
+      answerThree: "answer",
+      answerFour: "answer"
     });
   }else if(action.type === SET_ANSWER) {
     return Object.assign({}, state, {
