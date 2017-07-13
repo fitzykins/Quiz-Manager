@@ -26,7 +26,11 @@ const initialState = {
   count: 0,
   selectedAnswer: null,
   showQuiz: true,
-  showResults: false
+  showResults: false,
+  answerOne: "answer",
+  answerTwo: "answer",
+  answerThree: "answer",
+  answerFour: "answer"
 };
 
 export default (state=initialState, action) => {
@@ -80,7 +84,11 @@ export default (state=initialState, action) => {
     });
   }else if(action.type === SET_ANSWER) {
     return Object.assign({}, state, {
-      selectedAnswer: action.answer
+      selectedAnswer: action.answer,
+      answerOne: action.one,
+      answerTwo: action.two,
+      answerThree: action.three,
+      answerFour: action.four
     });
   }else if(action.type === TOGGLE_QUIZ_PAGE) {
     return Object.assign({}, state, {
@@ -103,7 +111,11 @@ export default (state=initialState, action) => {
       score: 0,
       selectedAnswer: null,
       showQuiz: true,
-      showResults: false
+      showResults: false,
+      answerOne: "answer",
+      answerTwo: "answer",
+      answerThree: "answer",
+      answerFour: "answer"
     });
   }
   return state;

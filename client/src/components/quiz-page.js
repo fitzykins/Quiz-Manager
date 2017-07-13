@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {fetchQuiz} from '../actions';
 import QuestionPage from './question-page';
 import ResultsPage from './results-page';
+import '../CSS/quiz-page.css';
 // import {Link} from 'react-router-dom';
 
 

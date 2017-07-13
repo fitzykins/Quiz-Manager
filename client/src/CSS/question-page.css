@@ -1,0 +1,25 @@
+@media only screen and (min-width: 576px){ 
+  .container{
+    display: flex;
+    flex-direction: column;
+  }
+  .question-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid black;
+    padding: 15px;
+    margin: 2.5% 5% 2.5% 5%;
+  }
+
+  .answer{
+    flex-grow: 3;
+    padding: 25px;
+    margin: 25px;
+    background-color: white;
+    width: 33%;
+  }
+  .selected{
+    background: yellow;
+  }
+}
