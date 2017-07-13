@@ -2,8 +2,8 @@ const base64 = require('base-64');
 
 export const RESET_TEST = 'RESET_TEST'
 export const resetTest = () => ({
-  type: RESET_TEST  
-})
+  type: RESET_TEST
+});
 
 export const INCREMENT_SCORE = 'INCREMENT_SCORE';
 export const incrementScore = (score, count) => ({
@@ -103,8 +103,6 @@ export const fetchLogIn = (username, password) => dispatch => {
     dispatch(fetchError(error))
   );
 }
-
-
 
 export const fetchUsers = () => (dispatch, getState) => {
   const state = getState();
@@ -207,6 +205,8 @@ export const updateQuiz = (quizName, userId, score, status) => (dispatch, getSta
     return response.json();
   }).then(_results => {
     return dispatch(fetchUpdateQuizSuccess(quizName, score, status));
+  }).then(results => {
+    return dispatch(fetchUpdateQuizSuccess(results));
   }).catch(error =>
       dispatch(fetchError(error))
     );

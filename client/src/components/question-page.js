@@ -61,7 +61,6 @@ class QuestionPage extends Component {
   };
 
   render () {
-    console.log(this.props.userId);
     let i = this.props.count;
   
     if(this.props.questions.length === 0) {

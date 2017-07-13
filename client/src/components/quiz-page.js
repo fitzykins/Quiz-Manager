@@ -13,7 +13,6 @@ class QuizPage extends Component {
     this.props.dispatch(resetTest());
     this.props.dispatch(fetchQuiz(this.props.match.params.quizId));
   }
-
   render () {
     let results;
     let quiz;

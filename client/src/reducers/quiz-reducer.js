@@ -33,6 +33,7 @@ const initialState = {
   admin: false,
   loginName: '',
   loginPass: ''
+
 };
 
 export default (state=initialState, action) => {
@@ -153,7 +154,7 @@ export default (state=initialState, action) => {
       showQuiz: true,
       showResults: false,
       count: 0
-    })
+    });
   }
   return state;
 
