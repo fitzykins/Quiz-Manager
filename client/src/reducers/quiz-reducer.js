@@ -61,7 +61,6 @@ export default (state=initialState, action) => {
       questions
     })
   }else if(action.type === FETCH_UPDATE_QUIZ_SUCCESS) {
-    console.log("update reducer has been hit", action);
     const quizScore = action.results.score;
     const status = action.results.status;
     return Object.assign({}, state, {

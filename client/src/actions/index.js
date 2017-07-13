@@ -136,7 +136,6 @@ export const updateQuiz = (quizName, userId, score, status) => dispatch => {
     }
     return response.json();
   }).then(results => {
-    console.log(results);
     return dispatch(fetchUpdateQuizSuccess(results));
   }).catch(error =>
       dispatch(fetchError(error))
