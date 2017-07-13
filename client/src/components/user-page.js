@@ -12,7 +12,6 @@ class UserPage extends Component {
   }
 
   render () {
-    console.log(this.props.quizzes);
     if(!this.props.quizzes) {
       return <p>anything</p>;
     }

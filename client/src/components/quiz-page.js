@@ -12,9 +12,8 @@ class QuizPage extends Component {
   componentWillMount() {
     this.props.dispatch(fetchQuiz(this.props.match.params.quizId));
   }
-
+  
   render () {
-
     let results;
     let quiz;
     if(this.props.showResults){

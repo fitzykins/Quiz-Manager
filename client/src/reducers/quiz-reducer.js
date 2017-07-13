@@ -1,5 +1,5 @@
 // import {INITIAL, GET_USER} from '../actions';
-import {FETCH_REQUEST,FETCH_USERS_SUCCESS,FETCH_USER_SUCCESS,FETCH_QUIZ_SUCCESS,FETCH_ERROR,INCREMENT_SCORE,SET_ANSWER,TOGGLE_QUIZ_PAGE} from '../actions';
+import {FETCH_REQUEST,FETCH_USERS_SUCCESS,FETCH_USER_SUCCESS,FETCH_QUIZ_SUCCESS,FETCH_ERROR,INCREMENT_SCORE,SET_ANSWER,TOGGLE_QUIZ_PAGE,FETCH_UPDATE_QUIZ_SUCCESS} from '../actions';
 const initialState = {
   users: [],
   loading: false,
@@ -11,6 +11,8 @@ const initialState = {
   questions: [],
   passingScore: null,
   quizName: null,
+  quizScore: 0,
+  status: null,
   score: 0,
   count: 0,
   selectedAnswer: null,
@@ -59,16 +61,24 @@ export default (state=initialState, action) => {
       passingScore,
       questions
     })
+  }else if(action.type === FETCH_UPDATE_QUIZ_SUCCESS) {
+    console.log("update reducer has been hit", action);
+    const quizScore = action.results.score;
+    const status = action.results.status;
+    return Object.assign({}, state, {
+      status,
+      quizScore
+    })
   }else if (action.type === FETCH_ERROR) {
     return Object.assign({}, state, {
       loading: false,
       error: action.error
     });
   }else if(action.type === INCREMENT_SCORE) {
-    console.log(action);
     return Object.assign({}, state, {
       score: action.score,
-      count: action.count
+      count: action.count,
+      selectedAnswer: null
     });
   }else if(action.type === SET_ANSWER) {
     return Object.assign({}, state, {

@@ -8,6 +8,7 @@ class ResultsPage extends Component {
     let status;
     let score = ((this.props.score/this.props.count)*100);
     let requiredScore = this.props.passingScore;
+    
     if(score >= requiredScore){
       status = <p>Congratulations! You have <b>Passed!</b></p>
     }

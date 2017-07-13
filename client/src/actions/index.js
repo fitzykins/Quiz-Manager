@@ -57,6 +57,13 @@ export const fetchError = error => ({
   error
 });
 
+export const FETCH_UPDATE_QUIZ_SUCCESS = 'FETCH_UPDATE_QUIZ_SUCCESS';
+export const fetchUpdateQuizSuccess = results => ({
+  type: FETCH_UPDATE_QUIZ_SUCCESS,
+  results
+});
+
+
 export const fetchUsers = () => dispatch => {
   const url = 'http://localhost:8080/api/users';
 
@@ -108,4 +115,26 @@ export const fetchQuiz = quizId => dispatch => {
      );
 };
 
-export const sendResults
+export const updateQuiz = (quizName, userId, score, status) => dispatch => {
+  const url = `http://localhost:8080/api/updateuserquiz/${quizName}/${userId}`;
+
+  dispatch(fetchRequest());
+
+  return fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json, text/plain, /',
+      'Content-Type': 'application/json' },
+    body: JSON.stringify({score, status})
+  }).then(response => {
+    if(!response.ok) {
+      return Promise.reject(response.statusText);
+    }
+    return response.json();
+  }).then(results => {
+    console.log(results);
+    return dispatch(fetchUpdateQuizSuccess(results));
+  }).catch(error =>
+      dispatch(fetchError(error))
+    );
+};
