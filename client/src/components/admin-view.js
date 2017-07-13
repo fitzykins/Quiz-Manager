@@ -31,7 +31,7 @@ class AdminView extends Component {
 
 const mapStateToProps= state =>({
   users: state.users.filter(user => {
-    return !user.userName.toLowerCase().includes('admin');
+    return !user.isAdmin;
   })
 });
 

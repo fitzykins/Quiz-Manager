@@ -52,17 +52,17 @@ export const fetchError = error => ({
 });
 
 export const fetchLogIn = (username, password) => dispatch => {
-  const url ='http://localhost:8080/api/login';
+  const url = 'http://localhost:8080/api/login';
   console.log('The username and password', username, password);
   dispatch(fetchRequest());
   return fetch(url, {
     method: 'get',
     headers: {
-      'Authorization': 'Basic ' + base64.encode(username +':' + password),
+      'Authorization': 'Basic ' + base64.encode(username + ':' + password),
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   }).then(response => {
-    if(!response.ok) {
+    if (!response.ok) {
       return Promise.reject(response.statusText);
     }
     return response.json();
@@ -71,27 +71,34 @@ export const fetchLogIn = (username, password) => dispatch => {
     console.log('this is the user', user);
     return dispatch(fetchLogInSuccess(user));
   }).catch(error =>
-      dispatch(fetchError(error))
-    );
+    dispatch(fetchError(error))
+  );
 }
 
 export const fetchUsers = () => (dispatch, getState) => {
-  // const state = getState();
-  // const username = state.username;
+  const state = getState();
+  const username = state.loginName;
+  const password = state.loginPass;
   const url = 'http://localhost:8080/api/users';
 
   dispatch(fetchRequest());
 
-  return fetch(url).then(response => {
-    if(!response.ok) {
+  return fetch(url, {
+    method: 'get',
+    headers: {
+      'Authorization': 'Basic ' + base64.encode(username + ':' + password),
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }).then(response => {
+    if (!response.ok) {
       return Promise.reject(response.statusText);
     }
     return response.json();
   }).then(users => {
     return dispatch(fetchUsersSuccess(users));
   }).catch(error =>
-       dispatch(fetchError(error))
-     );
+    dispatch(fetchError(error))
+  );
 };
 
 export const fetchUser = userId => dispatch => {
@@ -100,15 +107,15 @@ export const fetchUser = userId => dispatch => {
   dispatch(fetchRequest());
 
   return fetch(url).then(response => {
-    if(!response.ok) {
+    if (!response.ok) {
       return Promise.reject(response.statusText);
     }
     return response.json();
   }).then(user => {
     return dispatch(fetchUserSuccess(user));
   }).catch(error =>
-       dispatch(fetchError(error))
-     );
+    dispatch(fetchError(error))
+  );
 };
 
 export const fetchQuiz = quizId => dispatch => {
@@ -117,13 +124,13 @@ export const fetchQuiz = quizId => dispatch => {
   dispatch(fetchRequest());
 
   return fetch(url).then(response => {
-    if(!response.ok) {
+    if (!response.ok) {
       return Promise.reject(response.statusText);
     }
     return response.json();
   }).then(quiz => {
     return dispatch(fetchQuizSuccess(quiz));
   }).catch(error =>
-       dispatch(fetchError(error))
-     );
+    dispatch(fetchError(error))
+  );
 };

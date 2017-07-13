@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchUsers,signOut,setPassword,setUsername,fetchLogIn} from '../actions';
+import {setPassword,setUsername,fetchLogIn} from '../actions';
 import AdminPage from './admin-page';
 import UserPage from './user-page';
-
+// fetchUsers,signOut,
 class Login extends Component {
   goToUser(e) {
     e.preventDefault();
@@ -37,15 +37,10 @@ class Login extends Component {
 
   render () {
     if(this.props.admin) {
-      console.log(this.props.admin);
       return <AdminPage />
     }else if(this.props.loggedIn) {
       return <UserPage />
     }else {
-      if(this.props.users) {
-        // const options = this.props.users.map((user, index) => (
-        //   <option key={index} value={user.userName}>{user.userName}</option>
-        // ));
         return (
           <form onSubmit={e => this.logIn(e)} >
             <input type='username' placeholder='username' value={this.props.loginName} onChange={e=> this.updateUser(e.target.value)} />
@@ -53,7 +48,6 @@ class Login extends Component {
             <button type="submit">login</button>
           </form>
         )
-      }
     }
   }
 }

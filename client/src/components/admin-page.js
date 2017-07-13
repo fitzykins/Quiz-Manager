@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchUser, fetchUsers} from '../actions';
+import {fetchUsers} from '../actions';
 import {Link} from 'react-router-dom';
-
+// fetchUser,
 
 
 class AdminPage extends Component {
@@ -41,7 +41,7 @@ const mapStateToProps= state =>({
   adminId: state.userId,
   adminName: state.userName,
   users: state.users.filter(user => {
-    return !user.userName.toLowerCase().includes('admin');
+    return !user.isAdmin;
   })
 });
 

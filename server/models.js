@@ -45,7 +45,6 @@ userSchema.methods.apiRepr = function() {
 };
 
 userSchema.methods.validatePassword = function(password) {
-  console.log('hello jello', password);
   return bcrypt
     .compare(password, this.password)
     .then(isValid => isValid);
