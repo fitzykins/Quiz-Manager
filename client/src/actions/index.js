@@ -1,5 +1,28 @@
 const base64 = require('base-64');
 
+export const RESET_TEST = 'RESET_TEST'
+export const resetTest = () => ({
+  type: RESET_TEST  
+})
+
+export const INCREMENT_SCORE = 'INCREMENT_SCORE';
+export const incrementScore = (score, count) => ({
+  type: INCREMENT_SCORE,
+  score,
+  count
+});
+
+export const SET_ANSWER = 'SET_ANSWER';
+export const setAnswer = answer => ({
+  type: SET_ANSWER,
+  answer
+});
+
+export const TOGGLE_QUIZ_PAGE = 'TOGGLE_QUIZ_PAGE';
+export const toggleQuizPage = () => ({
+  type: TOGGLE_QUIZ_PAGE
+});
+
 export const SET_PASSWORD = 'SET_PASSWORD';
 export const setPassword = password => ({
   type: SET_PASSWORD,
@@ -51,9 +74,16 @@ export const fetchError = error => ({
   error
 });
 
+export const FETCH_UPDATE_QUIZ_SUCCESS = 'FETCH_UPDATE_QUIZ_SUCCESS';
+export const fetchUpdateQuizSuccess = (quizName, score, status) => ({
+  type: FETCH_UPDATE_QUIZ_SUCCESS,
+  quizName,
+  score,
+  status
+});
+
 export const fetchLogIn = (username, password) => dispatch => {
   const url = 'http://localhost:8080/api/login';
-  console.log('The username and password', username, password);
   dispatch(fetchRequest());
   return fetch(url, {
     method: 'get',
@@ -68,12 +98,13 @@ export const fetchLogIn = (username, password) => dispatch => {
     return response.json();
   }).then(_user => {
     const user = _user.user;
-    console.log('this is the user', user);
     return dispatch(fetchLogInSuccess(user));
   }).catch(error =>
     dispatch(fetchError(error))
   );
 }
+
+
 
 export const fetchUsers = () => (dispatch, getState) => {
   const state = getState();
@@ -101,12 +132,21 @@ export const fetchUsers = () => (dispatch, getState) => {
   );
 };
 
-export const fetchUser = userId => dispatch => {
+export const fetchUser = userId => (dispatch, getState) => {
+  const state = getState();
+  const username = state.loginName;
+  const password = state.loginPass;
   const url = `http://localhost:8080/api/users/${userId}`;
 
   dispatch(fetchRequest());
 
-  return fetch(url).then(response => {
+  return fetch(url, {
+    method: 'get',
+    headers: {
+      'Authorization': 'Basic ' + base64.encode(username + ':' + password),
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    }).then(response => {
     if (!response.ok) {
       return Promise.reject(response.statusText);
     }
@@ -118,12 +158,21 @@ export const fetchUser = userId => dispatch => {
   );
 };
 
-export const fetchQuiz = quizId => dispatch => {
+export const fetchQuiz = quizId => (dispatch, getState) => {
+  const state = getState();
+  const username = state.loginName;
+  const password = state.loginPass;
   const url = `http://localhost:8080/api/quizzes/${quizId}`;
 
   dispatch(fetchRequest());
 
-  return fetch(url).then(response => {
+  return fetch(url, {
+    method: 'get',
+    headers: {
+      'Authorization': 'Basic ' + base64.encode(username + ':' + password),
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    }).then(response => {
     if (!response.ok) {
       return Promise.reject(response.statusText);
     }
@@ -133,4 +182,32 @@ export const fetchQuiz = quizId => dispatch => {
   }).catch(error =>
     dispatch(fetchError(error))
   );
+};
+
+export const updateQuiz = (quizName, userId, score, status) => (dispatch, getState) => {
+  const state = getState();
+  const username = state.loginName;
+  const password = state.loginPass;
+  const url = `http://localhost:8080/api/updateuserquiz/${quizName}/${userId}`;
+
+  dispatch(fetchRequest());
+
+  return fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json, text/plain, /',
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + base64.encode(username + ':' + password)
+    },
+    body: JSON.stringify({score, status})
+  }).then(response => {
+    if(!response.ok) {
+      return Promise.reject(response.statusText);
+    }
+    return response.json();
+  }).then(_results => {
+    return dispatch(fetchUpdateQuizSuccess(quizName, score, status));
+  }).catch(error =>
+      dispatch(fetchError(error))
+    );
 };

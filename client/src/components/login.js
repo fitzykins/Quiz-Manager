@@ -3,17 +3,13 @@ import {connect} from 'react-redux';
 import {setPassword,setUsername,fetchLogIn} from '../actions';
 import AdminPage from './admin-page';
 import UserPage from './user-page';
-// fetchUsers,signOut,
+// signOut,
 class Login extends Component {
-  goToUser(e) {
-    e.preventDefault();
-    const user = this.props.users.find(user => {
-      return user.userName === this.input.value;
-    });
-    if(user.userName === 'Admin') {
-      this.props.history.push(`/admin/${user.id}`);
-    }else {
-      this.props.history.push(`/user/${user.id}`);
+  goToUser() {
+    if(this.props.admin) {
+      this.props.history.push(`/admin/${this.props.userId}`);
+    }else if (this.props.loggedIn) {
+      this.props.history.push(`/user/${this.props.userId}`);
     }
   }
 
@@ -24,10 +20,12 @@ class Login extends Component {
   updatePassword(password) {
     this.props.dispatch(setPassword(password));
   }
-
-  componentDidMount() {
+ componentDidMount() {
+   this.goToUser();
+ }
+  componentDidUpdate() {
     // this.props.dispatch(signOut());
-    // this.props.dispatch(fetchUsers());
+    this.goToUser();
   }
 
   logIn(e) {
@@ -36,11 +34,6 @@ class Login extends Component {
   }
 
   render () {
-    if(this.props.admin) {
-      return <AdminPage />
-    }else if(this.props.loggedIn) {
-      return <UserPage />
-    }else {
         return (
           <form onSubmit={e => this.logIn(e)} >
             <input type='username' placeholder='username' value={this.props.loginName} onChange={e=> this.updateUser(e.target.value)} />
@@ -48,12 +41,12 @@ class Login extends Component {
             <button type="submit">login</button>
           </form>
         )
-    }
   }
 }
 
 const mapStateToProps = state =>({
   users: state.users,
+  userId: state.userId,
   admin: state.admin,
   loggedIn: state.loggedIn,
   password: state.loginPass,

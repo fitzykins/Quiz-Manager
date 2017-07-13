@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchQuiz} from '../actions';
+import {fetchQuiz, resetTest} from '../actions';
 import QuestionPage from './question-page';
 import ResultsPage from './results-page';
 // import {Link} from 'react-router-dom';
@@ -10,6 +10,7 @@ import ResultsPage from './results-page';
 class QuizPage extends Component {
 
   componentWillMount() {
+    this.props.dispatch(resetTest());
     this.props.dispatch(fetchQuiz(this.props.match.params.quizId));
   }
 

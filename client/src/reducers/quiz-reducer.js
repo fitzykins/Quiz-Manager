@@ -10,7 +10,8 @@ import {FETCH_REQUEST,
   INCREMENT_SCORE,
   SET_ANSWER,
   TOGGLE_QUIZ_PAGE,
-  FETCH_UPDATE_QUIZ_SUCCESS} from '../actions';
+  FETCH_UPDATE_QUIZ_SUCCESS,
+  RESET_TEST} from '../actions';
 
 const initialState = {
   users: [],
@@ -66,13 +67,18 @@ export default (state=initialState, action) => {
       questions
     })
   }else if(action.type === FETCH_UPDATE_QUIZ_SUCCESS) {
-    console.log("update reducer has been hit", action);
-    const quizScore = action.results.score;
-    const status = action.results.status;
+    const score = action.score;
+    const status = action.status;
+    const quizzes = state.quizzes.map(quiz => {
+      if(quiz.quiz === action.quizName){
+        quiz.score = score;
+        quiz.status = status;
+      }
+      return quiz;
+    });
     return Object.assign({}, state, {
-      status,
-      quizScore
-    })
+      quizzes
+    });
   }else if (action.type === FETCH_ERROR) {
     return Object.assign({}, state, {
       loading: false,
@@ -140,6 +146,14 @@ export default (state=initialState, action) => {
       showQuiz: !state.showQuiz,
       showResults: !state.showResults
     });
+  }else if (action.type === RESET_TEST) {
+    return Object.assign({}, state, {
+      score: 0,
+      selectedAnswer: null,
+      showQuiz: true,
+      showResults: false,
+      count: 0
+    })
   }
   return state;
 
