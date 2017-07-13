@@ -1,3 +1,17 @@
+const base64 = require('base-64');
+
+export const SET_PASSWORD = 'SET_PASSWORD';
+export const setPassword = password => ({
+  type: SET_PASSWORD,
+  password
+});
+
+export const SET_USERNAME = 'SET_USERNAME';
+export const setUsername = userName => ({
+  type: SET_USERNAME,
+  userName
+});
+
 export const SIGN_OUT = 'SIGN_OUT';
 export const signOut = () => ({
   type: SIGN_OUT
@@ -30,6 +44,23 @@ export const fetchError = error => ({
   type: FETCH_ERROR,
   error
 });
+
+export const fetchLogIn = (username, password) => dispatch => {
+  const url ='http://localhost:8080/api/login';
+  console.log('The username and password', username, password);
+  dispatch(fetchRequest());
+  return fetch(url, {
+    method: 'get',
+    headers: {
+      'Authorization': 'Basic ' + base64.encode(username +':' + password),
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }).then(response => {
+    console.log(response);
+  }).catch(error =>
+      dispatch(fetchError(error))
+    );
+}
 
 export const fetchUsers = () => dispatch => {
   const url = 'http://localhost:8080/api/users';

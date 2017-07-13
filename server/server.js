@@ -8,21 +8,93 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const ObjectId = require('mongoose').Types.ObjectId;
+const passport = require('passport');
+const {BasicStrategy} = require('passport-http');
 
 const {User, Quiz} = require('./models');
 const {DATABASE_URL, PORT} = require('./config');
 
 const app = express();
 
+//Basic authentication strategy
+const strategy = new BasicStrategy(function(username, password, callback) {
+  let user;
+  console.log('are we here', username, password);
+  User
+    .findOne({userName: username})
+    .exec()
+    .then(_user => {
+      console.log('user', _user);
+      user = _user;
+      if (!user) {
+        return callback(null, false, {message: 'Incorrect username'});
+      }
+      console.log(user.validatePassword(password));
+      return user.validatePassword(password);
+    })
+    .then(isValid => {
+      console.log('valid?', isValid);
+      if (!isValid) {
+        return callback(null, false, {message: 'Incorrect password'});
+      }
+      else {
+        return callback(null, user);
+      }
+    })
+    .catch(err => console.log('Invalid username or password'));
+});
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(express.static('./'));
 mongoose.Promise = global.Promise;
+passport.use(strategy);
+app.use(passport.initialize());
+app.use(passport.session());
 
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+
+function loggedIn(req, res, next) {
+  if(req.user) {
+    next();
+  } else {
+    res.json({redirect: '../client/index.js', message: 'Please sign in'});
+  }
+}
+
+// GET for user to sign in
+app.get('/api/login',
+	passport.authenticate('basic', {session: true, failureRedirect: '/'}),
+		(req, res) => {
+
+  res.json({user: req.user.apiRepr(), message: 'Sign in successful'});
+}
+);
+
+// GET for user session (protected, must be signed-in already and have session cookie)
+app.get('/me', loggedIn, (req, res, next) => {
+  res.json({user: req.user.apiRepr()});
+}
+);
+
+// GET for user to sign out
+app.get('/logout', (req, res) => {
+  req.session.destroy(function (err) {
+    res.redirect('/');
+  });
+});
 
 // API endpoints go here!
-app.get('/api/users', (req, res) =>{
+app.get('/api/users',loggedIn, (req, res) =>{
   User
     .find()
     .then(users =>{
@@ -36,7 +108,7 @@ app.get('/api/users', (req, res) =>{
     });
 });
 
-app.get('/api/users/:id', (req, res) =>{
+app.get('/api/users/:id', loggedIn, (req, res) => {
   User
     .findById(req.params.id)
     .then(user => res.json(user.apiRepr()))
@@ -46,7 +118,7 @@ app.get('/api/users/:id', (req, res) =>{
     });
 });
 
-app.get('/api/quizzes', (req, res) =>{
+app.get('/api/quizzes', loggedIn, (req, res) =>{
   Quiz
     .find()
     .then(quizzes =>{
@@ -60,7 +132,7 @@ app.get('/api/quizzes', (req, res) =>{
     });
 });
 
-app.get('/api/quizzes/:id', (req, res) =>{
+app.get('/api/quizzes/:id', loggedIn, (req, res) =>{
   Quiz
     .findById(req.params.id)
     .then(quiz => res.json(quiz.apiRepr()))
@@ -70,7 +142,7 @@ app.get('/api/quizzes/:id', (req, res) =>{
     });
 });
 
-app.post('/api/users', (req, res) =>{
+app.post('/api/users', loggedIn, (req, res) =>{
   User
     .create({
       userName: req.body.userName,
@@ -83,7 +155,7 @@ app.post('/api/users', (req, res) =>{
     });
 });
 
-app.post('/api/quizzes', (req, res) =>{
+app.post('/api/quizzes', loggedIn, (req, res) =>{
   const requiredFields = ['name', 'passingScore', 'questions'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -107,7 +179,7 @@ app.post('/api/quizzes', (req, res) =>{
     });
 });
 
-app.get('/api/validatescore/:name/:id', (req, res)=>{
+app.get('/api/validatescore/:name/:id', loggedIn, (req, res)=>{
   User
     .update({_id:req.params.id, 'quizzes.quiz':req.params.name},
     {$set: {'quizzes.$.status':'Pass'}, $inc: {'quizzes.$.score':1}})
@@ -119,7 +191,7 @@ app.get('/api/validatescore/:name/:id', (req, res)=>{
     });
 });
 
-app.put('/api/users/:id', (req, res) =>{
+app.put('/api/users/:id', loggedIn, (req, res) =>{
   if (!(req.params.id && req.body.id === req.body.id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
@@ -144,7 +216,7 @@ app.put('/api/users/:id', (req, res) =>{
 });
 
 
-app.put('/api/quizzes/:id', (req, res) =>{
+app.put('/api/quizzes/:id', loggedIn, (req, res) =>{
   if (!(req.params.id && req.body.id === req.body.id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
@@ -168,7 +240,7 @@ app.put('/api/quizzes/:id', (req, res) =>{
     });
 });
 
-app.delete('/api/users/:id', (req, res) =>{
+app.delete('/api/users/:id', loggedIn, (req, res) =>{
   User
     .findByIdAndRemove(req.params.id)
     .then(() => {
@@ -181,7 +253,7 @@ app.delete('/api/users/:id', (req, res) =>{
     });
 });
 
-app.delete('/api/quizzes/:id', (req, res) =>{
+app.delete('/api/quizzes/:id', loggedIn, (req, res) =>{
   Quiz
     .findByIdAndRemove(req.params.id)
     .then(() => {

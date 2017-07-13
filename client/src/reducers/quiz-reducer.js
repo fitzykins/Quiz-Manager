@@ -3,7 +3,9 @@ import {FETCH_REQUEST,
   FETCH_USER_SUCCESS,
   FETCH_QUIZ_SUCCESS,
   FETCH_ERROR,
-  SIGN_OUT} from '../actions';
+  SIGN_OUT,
+  SET_USERNAME,
+  SET_PASSWORD} from '../actions';
 
 const initialState = {
   users: [],
@@ -20,7 +22,11 @@ const initialState = {
   score: 0,
   selectedAnswer: null,
   showQuiz: true,
-  showResults: false
+  showResults: false,
+  loggedIn: false,
+  admin: false,
+  loginName: '',
+  loginPass: ''
 };
 
 export default (state=initialState, action) => {
@@ -75,7 +81,19 @@ export default (state=initialState, action) => {
       score: 0,
       selectedAnswer: null,
       showQuiz: true,
-      showResults: false
+      showResults: false,
+      loggedIn:false,
+      admin: false,
+      loginName: '',
+      loginPass: ''
+    });
+  }else if (action.type === SET_USERNAME) {
+    return Object.assign({}, state, {
+      loginName: action.userName
+    });
+  }else if (action.type === SET_PASSWORD) {
+    return Object.assign({}, state, {
+      loginPass: action.password
     });
   }
   return state;
