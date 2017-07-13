@@ -4,6 +4,8 @@ require('dotenv').config();
 
 const path = require('path');
 const express = require('express');
+const cookie = require('cookie-parser');
+const session = require('express-session');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -45,14 +47,18 @@ app.use(bodyParser.json());
 app.use(express.static('./'));
 mongoose.Promise = global.Promise;
 passport.use(strategy);
+app.use(cookie());
+app.use(session({ secret: 'white whale', cookie: {secure: false}}));
 app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+  console.log('serializeUser', user);
+  done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
+  console.log('deserialize id', id);
   User.findById(id, function(err, user) {
     done(err, user);
   });
@@ -60,7 +66,7 @@ passport.deserializeUser(function(id, done) {
 
 
 function loggedIn(req, res, next) {
-  console.log('this is the req', req.user);
+  console.log('this is the req', req.session);
   if(req.user) {
     next();
   } else {

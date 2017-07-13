@@ -11,8 +11,10 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
+    "express-session": "^1.15.3",
     "mongoose": "^4.11.1",
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",

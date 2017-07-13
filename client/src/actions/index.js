@@ -75,7 +75,9 @@ export const fetchLogIn = (username, password) => dispatch => {
     );
 }
 
-export const fetchUsers = () => dispatch => {
+export const fetchUsers = () => (dispatch, getState) => {
+  // const state = getState();
+  // const username = state.username;
   const url = 'http://localhost:8080/api/users';
 
   dispatch(fetchRequest());
