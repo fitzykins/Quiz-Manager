@@ -1,0 +1,23 @@
+@media only screen and (min-width: 645px){  
+  html{
+    background-color: #C7DFC5;
+  }
+
+  h2{
+    border-bottom: 1px solid black;
+    background-color: #C1DBE3;
+    margin: 0px;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  .quiz{
+    margin: 5% 15% 10% 15%;
+    border: 2px solid black;
+    text-align: center;
+    height: 400px;
+    background-color: white;
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+}

@@ -1,0 +1,41 @@
+@media only screen and (min-width: 576px){ 
+
+  .question{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 20px 10px 10px 10px;
+  }
+  .question-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 15px;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  .answer{
+    flex-grow: 3;
+    padding: 25px;
+    margin: 25px 25px 0px 25px;
+    background-color: white;
+    width: 33%;
+    border: 5px outset;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+  .selected{
+    border: 5px inset #373737;
+  }
+
+  .submit{
+    background: white;
+    margin-top: 25px;
+  }
+
+  .question-number{
+    margin: 0px;
+    float: right;
+    padding-right: 15px;
+    margin-top: 15px;
+  }
+}

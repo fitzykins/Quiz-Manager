@@ -5,6 +5,7 @@ import UserPage from './user-page';
 import AdminPage from './admin-page';
 import QuizPage from './quiz-page';
 import AdminView from './admin-view';
+import '../CSS/app.css';
 
 class App extends Component {
   render() {
@@ -12,7 +13,7 @@ class App extends Component {
       <Router>
       <div className="App">
         <header>
-          <h1><Link to="/"> Quiz Manager</Link></h1>
+          <div><Link to="/"><div className="logo"></div></Link></div>
         </header>
         <main>
           <Route exact path="/" component={Login}/>

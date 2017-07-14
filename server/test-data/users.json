@@ -1,31 +1,29 @@
 [
-{  "_id": "5964e504fbef5a2d3422629d",
-  "password": "$2a$10$nEQ9/n.zMPAkZl8SqhfKj.3zvLVyealcp8iSfVMA2xIdBa6mhP1bu",
-  "userName": "UserTwo",
-  "isAdmin": false,
-  "quizzes": [{
-    "quiz": "Quiz One",
-    "status": "Not Taken",
-    "score": "0",
-    "id": "5965184c80699516fc8b2fda"
-  }]
-},
-{
-  "_id": "5964ffb250be504f007f1be6",
-  "userName": "UserOne",
-  "password": "$2a$10$nEQ9/n.zMPAkZl8SqhfKj.3zvLVyealcp8iSfVMA2xIdBa6mhP1bu",
-  "isAdmin": false,
-  "quizzes": [{
-    "quiz": "Quiz One",
-    "status": "Not Taken",
-    "score": "0",
-    "id": "5965184c80699516fc8b2fda"
-  }]
-},
-{
-  "_id": "5964ffb250be504f007f1be5",
-  "isAdmin": true,
-  "password": "$2a$10$nEQ9/n.zMPAkZl8SqhfKj.3zvLVyealcp8iSfVMA2xIdBa6mhP1bu",
-  "userName": "Admin"
-}
+  {  
+    "password": "$2a$10$nEQ9/n.zMPAkZl8SqhfKj.3zvLVyealcp8iSfVMA2xIdBa6mhP1bu",
+    "userName": "UserTwo",
+    "isAdmin": false,
+    "quizzes": [{
+      "quiz": "Quiz One",
+      "status": "Not Taken",
+      "score": "0",
+      "id": "5965197a1aa2679a1295757d"
+    }]
+  },
+  {
+    "userName": "UserOne",
+    "password": "$2a$10$nEQ9/n.zMPAkZl8SqhfKj.3zvLVyealcp8iSfVMA2xIdBa6mhP1bu",
+    "isAdmin": false,
+    "quizzes": [{
+      "quiz": "Quiz One",
+      "status": "Not Taken",
+      "score": "0",
+      "id": "5965197a1aa2679a1295757d"
+    }]
+  },
+  {
+    "isAdmin": true,
+    "password": "$2a$10$nEQ9/n.zMPAkZl8SqhfKj.3zvLVyealcp8iSfVMA2xIdBa6mhP1bu",
+    "userName": "Admin"
+  }
 ]

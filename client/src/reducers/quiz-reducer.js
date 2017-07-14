@@ -29,11 +29,14 @@ const initialState = {
   selectedAnswer: null,
   showQuiz: true,
   showResults: false,
+  answerOne: "answer",
+  answerTwo: "answer",
+  answerThree: "answer",
+  answerFour: "answer",
   loggedIn: false,
   admin: false,
   loginName: '',
   loginPass: ''
-
 };
 
 export default (state=initialState, action) => {
@@ -85,6 +88,24 @@ export default (state=initialState, action) => {
       loading: false,
       error: action.error
     });
+  }else if(action.type === INCREMENT_SCORE) {
+    return Object.assign({}, state, {
+      score: action.score,
+      count: action.count,
+      selectedAnswer: null,
+      answerOne: "answer",
+      answerTwo: "answer",
+      answerThree: "answer",
+      answerFour: "answer"
+    });
+  }else if(action.type === SET_ANSWER) {
+    return Object.assign({}, state, {
+      selectedAnswer: action.answer,
+      answerOne: action.one,
+      answerTwo: action.two,
+      answerThree: action.three,
+      answerFour: action.four
+    });
   }else if (action.type === FETCH_LOGIN_SUCCESS) {
     let admin = false;
     let loggedIn = true;
@@ -119,6 +140,10 @@ export default (state=initialState, action) => {
       selectedAnswer: null,
       showQuiz: true,
       showResults: false,
+      answerOne: "answer",
+      answerTwo: "answer",
+      answerThree: "answer",
+      answerFour: "answer",
       loggedIn:false,
       admin: false,
       loginName: '',
@@ -157,6 +182,4 @@ export default (state=initialState, action) => {
     });
   }
   return state;
-
-
 }

@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 // import {fetchUser} from '../actions';
 import {Link} from 'react-router-dom';
 
+import '../CSS/user.css';
+
 class UserPage extends Component {
 
   componentWillMount() {
@@ -14,17 +16,17 @@ class UserPage extends Component {
       return <p>anything</p>;
     }
     const quizzes = this.props.quizzes.map((quiz,index) => (
-      <li key={index}>
-        <Link to={`/quizzes/${quiz.id}`}>
-         {quiz.quiz}
+      <li key={index} className="user-quizzes">
+        <Link className="user-link" to={`/quizzes/${quiz.id}`}>
+         <b>{quiz.quiz}</b>
         </Link>
-        <p>Status: {quiz.status}</p>
+        <p><i>Status</i>: <b>{quiz.status}</b></p>
       </li>
     ));
       return (
-        <div>
+        <div className="user-container">
          <h3>{this.props.userName}</h3>
-          <ul>
+          <ul className="user-quiz-list">
            {quizzes}
           </ul>
         </div>

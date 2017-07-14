@@ -13,9 +13,13 @@ export const incrementScore = (score, count) => ({
 });
 
 export const SET_ANSWER = 'SET_ANSWER';
-export const setAnswer = answer => ({
+export const setAnswer = (answer, one, two, three, four) => ({
   type: SET_ANSWER,
-  answer
+  answer,
+  one,
+  two,
+  three,
+  four
 });
 
 export const TOGGLE_QUIZ_PAGE = 'TOGGLE_QUIZ_PAGE';

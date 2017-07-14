@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
+import '../CSS/admin-view.css';
+
 class AdminView extends Component {
 
   render() {
@@ -10,20 +12,20 @@ class AdminView extends Component {
     }
     const userIndex = this.props.match.params.userIndex;
     const quizzes = this.props.users[userIndex].quizzes.map((quiz,index) => (
-      <li key={index}>
-         {quiz.quiz}
-        <p>Status: {quiz.status}</p>
+      <li key={index} className="admin-user-quiz">
+         <b><u>{quiz.quiz}</u></b>
+        <p><i>Status</i>: <b>{quiz.status}</b></p>
       </li>
     ));
     return (
-      <div>
-       <h3>{this.props.users[userIndex].userName}</h3>
-       <Link to={`/admin/${this.props.match.params.adminId}`}>
-       <p>Go Back</p>
-       </Link>
-        <ul>
+      <div className="admin-user-container">
+       <h3 className="admin-user-name">{this.props.users[userIndex].userName}</h3>
+        <ul className="admin-user-quiz-list">
          {quizzes}
         </ul>
+        <Link className="home-link" to={`/admin/${this.props.match.params.adminId}`}>
+       <p>Go Back</p>
+       </Link>
       </div>
     )
   }
