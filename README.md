@@ -1,58 +1,54 @@
-# Thinkful Full Stack Template
+# MVP For Quiz Manager App
 
-A template for developing and deploying full stack JavaScript apps.
+A working mvp for a quiz manager application. Find the demo at https://dashboard.heroku.com/apps/guiz-manager/deploy/heroku-git
 
-## Getting started
+## Description
+Our quiz manager application allows users to complete content that is required for their job, and for administrators to check on the users' progress.
+It's an easy way for users to access content they need to complete and for the powers that be to check that the content is being completed.
 
-### Setting up a project
+Our MVP uses quizzes as content, but the content could easily be anything (forms, articles, etc.).
 
-* Move into your projects directory: `cd ~/YOUR_PROJECTS_DIRECTORY`
-* Clone this repository: `git clone https://github.com/Thinkful-Ed/full-stack-template YOUR_PROJECT_NAME`
-* Move into the project directory: `cd YOUR_PROJECT_NAME`
-* Install the dependencies: `npm install`
-* Create a new repo on GitHub: https://github.com/new
-    * Make sure the "Initialize this repository with a README" option is left **un**checked
-* Update the remote to point to your GitHub repository: `git remote set-url origin https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME`
+## How To Use
+At the time of writing, there is no way to create users or quizzes, so there is some provided user/quiz data in the remote database for you to use.
 
-### Working on the project
+###Admin: username: Admin, password: test-password
+The admin can view a list of non-admin users and click on their names. This will bring up the user's status in regards to each quiz.
 
-* Move into the project directory: `cd ~/YOUR_PROJECTS_DIRECTORY/YOUR_PROJECT_NAME`
-* Run the development task: `npm run dev`
-    * Starts a server running at http://localhost:8080
-    * Automatically rebuilds when any of your files change
+###UserOne: username: UserOne, password: test-password
+This user can view a list of quizzes and their status in regards to the quiz (not taken, passed, failed). The user can then click on a quiz and take it.
+At the end of the quiz the results will be shown and a passing or failing status will be applied.
 
-## Proxying
+###UserTwo: username: UserOne, password: test-password
+This user can view a list of quizzes and their status in regards to the quiz (not taken, passed, failed). The user can then click on a quiz and take it.
+At the end of the quiz the results will be shown and a passing or failing status will be applied.
 
-In development, the full stack template works by proxying requests from port 8080 to the server or the client.  Any requests to routes which start with `/api/`, (for example, `/api/foo`, or `/api/foo/bar`) will be sent to the server.  All other requests, will serve the client.
 
-*tl;dr* Make sure your API endpoints start with `/api`.
+## The stack
 
-## Installing dependencies
+* **The Front End**
+  * React
+  * Redux
+  * CSS
+* **The Back End**
+  * Node
+  * Express
+  * Mongo instance on mLab
+  * Mongoose
 
-Client-side dependencies should be installed into the `client` directory:
+## Lessons Learned
 
-```
-cd ~/YOUR_PROJECTS_DIRECTORY/YOUR_PROJECT_NAME/client
-npm install --save dependency-name
-```
-
-Server-side dependencies should be installed into the `server` directory:
-
-```
-cd ~/YOUR_PROJECTS_DIRECTORY/YOUR_PROJECT_NAME/server
-npm install --save dependency-name
-```
-
-## Deployment
-
-Requires the [Heroku CLI client](https://devcenter.heroku.com/articles/heroku-command-line).
-
-### Setting up the project on Heroku
-
-* Move into the project directory: `cd ~/YOUR_PROJECTS_DIRECTORY/YOUR_PROJECT_NAME`
-* Create the Heroku app: `heroku create PROJECT_NAME`
-
-### Deploying to Heroku
-
-* Push your code to Heroku: `git push heroku master`
-
+* **Process, Planning, Development, Coordination**
+  * For the purposes of an MVP go for the simpler solution that works, worry about higher functionality later.
+* **Development and Technology**
+  * Pros:
+    * React is fun to work with.
+    * Redux makes is really easy to think about and manage state.
+  * Cons:
+    * How does passport.session() work?
+    * The fetch api does not automatically send cookies (more research needed).
+* **Next Steps**
+  * Persistent login system so users stay logged in after refresh (cookies!).
+  * Better authentication so users can't take other user's quizzes.
+  * Sign out button!
+  * User creation.
+  * More admin features such as quiz creation.
