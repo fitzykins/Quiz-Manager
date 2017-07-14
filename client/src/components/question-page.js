@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {incrementScore, setAnswer, toggleQuizPage, updateQuiz} from '../actions';
-
+import '../CSS/question-page.css';
 
 class QuestionPage extends Component {
 
@@ -56,43 +56,60 @@ class QuestionPage extends Component {
   updateAnswer(event){
     event.preventDefault();
     const answer = event.target.value;
+    const answerOne = this.props.questions[this.props.count].totalAnswers[0];
+    const answerTwo = this.props.questions[this.props.count].totalAnswers[1];
+    const answerThree = this.props.questions[this.props.count].totalAnswers[2];
 
-    this.props.dispatch(setAnswer(answer));
+    if(answer === answerOne){
+      this.props.dispatch(setAnswer(answer, "answer selected", "answer", "answer", "answer"));
+    }else if(answer === answerTwo){
+      this.props.dispatch(setAnswer(answer, "answer", "answer selected", "answer", "answer"));
+    }else if(answer === answerThree){
+      this.props.dispatch(setAnswer(answer, "answer", "answer", "answer selected", "answer"));
+    }else{
+      this.props.dispatch(setAnswer(answer, "answer", "answer", "answer", "answer selected"));
+    }
   };
-
+  
   render () {
     let i = this.props.count;
-  
+    console.log(this.props.selectedAnswer);
     if(this.props.questions.length === 0) {
       return <p>Could not load questions</p>;
     }
+    
       return (
-        <div className="question">
-         {this.props.questions[i].question}
-          <form onSubmit={e => this.validateAnswer(e)}>
-            <input type='radio' name='questions' 
-                  value={this.props.questions[i].totalAnswers[0]}
-                  onChange={e=> this.updateAnswer(e)}
-                  checked={this.props.selectedAnswer === this.props.questions[i].totalAnswers[0]} />
-                  {this.props.questions[i].totalAnswers[0]}
-            <input type='radio' name='questions' 
-                  value={this.props.questions[i].totalAnswers[1]}
-                  onChange={e=> this.updateAnswer(e)}
-                  checked={this.props.selectedAnswer === this.props.questions[i].totalAnswers[1]} />
-                  {this.props.questions[i].totalAnswers[1]}
-            <input type='radio' name='questions' 
-                  value={this.props.questions[i].totalAnswers[2]}
-                  onChange={e=> this.updateAnswer(e)}
-                  checked={this.props.selectedAnswer === this.props.questions[i].totalAnswers[2]} />
-                  {this.props.questions[i].totalAnswers[2]}
-            <input type='radio' name='questions' 
-                  value={this.props.questions[i].totalAnswers[3]}
-                  onChange={e=> this.updateAnswer(e)} 
-                  checked={this.props.selectedAnswer === this.props.questions[i].totalAnswers[3]} />
-                  {this.props.questions[i].totalAnswers[3]}       
-            <button type='submit'>Submit</button>
-          </form>
-        </div>
+        <section className='container'>
+          <div className="question">
+          {this.props.questions[i].question}
+            <form className='question-list'>
+              <button className={this.props.answerOne}
+                      value={this.props.questions[i].totalAnswers[0]}
+                      onClick={e=> this.updateAnswer(e)} >
+                {this.props.questions[i].totalAnswers[0]}
+              </button>
+              <button className={this.props.answerTwo}
+                      value={this.props.questions[i].totalAnswers[1]}
+                      onClick={e=> this.updateAnswer(e)} >
+                {this.props.questions[i].totalAnswers[1]}
+              </button>
+              <button className={this.props.answerThree}
+                      value={this.props.questions[i].totalAnswers[2]}
+                      onClick={e=> this.updateAnswer(e)} >
+                {this.props.questions[i].totalAnswers[2]}
+              </button>
+              <button className={this.props.answerFour}
+                      value={this.props.questions[i].totalAnswers[3]}
+                      onClick={e=> this.updateAnswer(e)} >
+                {this.props.questions[i].totalAnswers[3]}
+              </button>
+            </form>
+            <form onSubmit={e => this.validateAnswer(e)}>
+              <button className="submit" type='submit'>Submit</button>
+            </form>
+          </div>
+          <p className='question-number'>Question #{(i+1)} out of {this.props.questions.length}</p>
+        </section>
       )
   }
 }
@@ -104,7 +121,11 @@ const mapStateToProps= state =>({
   questions: state.questions,
   score: state.score,
   count: state.count,
-  selectedAnswer: state.selectedAnswer
+  selectedAnswer: state.selectedAnswer,
+  answerOne: state.answerOne,
+  answerTwo: state.answerTwo,
+  answerThree: state.answerThree,
+  answerFour: state.answerFour
 });
 
 export default connect(mapStateToProps)(QuestionPage);
