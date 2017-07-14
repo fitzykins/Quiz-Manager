@@ -9,14 +9,25 @@ import '../CSS/quiz-page.css';
 
 
 class QuizPage extends Component {
-
-  componentWillMount() {
+  checkLogin() {
     if(!this.props.userId) {
       this.props.history.push('/');
+      return true;
     }
-    this.props.dispatch(resetTest());
-    this.props.dispatch(fetchQuiz(this.props.match.params.quizId));
+    return false;
   }
+
+  componentDidMount() {
+    if(!this.checkLogin()){
+      this.props.dispatch(resetTest());
+      this.props.dispatch(fetchQuiz(this.props.match.params.quizId));
+    }
+  }
+
+  componentDidUpdate() {
+    this.checkLogin();
+  }
+
   render () {
     let results;
     let quiz;

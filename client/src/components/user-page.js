@@ -6,11 +6,18 @@ import {Link} from 'react-router-dom';
 import '../CSS/user.css';
 
 class UserPage extends Component {
-
-  componentWillMount() {
+  checkLogin() {
     if(!this.props.userId) {
       this.props.history.push('/');
     }
+  }
+
+  componentDidMount() {
+    this.checkLogin();
+  }
+
+  componentDidUpdate() {
+    this.checkLogin();
   }
 
   render () {

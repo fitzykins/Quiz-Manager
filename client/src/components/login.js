@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {setPassword,setUsername,fetchLogIn} from '../actions';
 import '../CSS/login-page.css';
-// signOut,
+
 class Login extends Component {
   goToUser() {
     if(this.props.admin) {
@@ -23,7 +23,6 @@ class Login extends Component {
    this.goToUser();
  }
   componentDidUpdate() {
-    // this.props.dispatch(signOut());
     this.goToUser();
   }
 

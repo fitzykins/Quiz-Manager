@@ -8,19 +8,21 @@ import '../CSS/admin-page.css';
 
 
 class AdminPage extends Component {
-  componentDidMount() {
+  checkLogin() {
     if(!this.props.adminId) {
       this.props.history.push(`/`);
-    }else if(this.props.users.length < 1){
+    }
+  }
+
+  componentDidMount() {
+    this.checkLogin();
+    if(this.props.users.length < 1) {
       this.props.dispatch(fetchUsers());
     }
-
   }
 
   componentDidUpdate() {
-    if(!this.props.adminId) {
-      this.props.history.push(`/`);
-    }
+    this.checkLogin();
   }
 
   render () {
@@ -32,7 +34,7 @@ class AdminPage extends Component {
          </Link>
        </li>
      )
-   })
+   });
    return (
     <div className='admin-view'>
       <h3 className="admin-name">{this.props.adminName}</h3>

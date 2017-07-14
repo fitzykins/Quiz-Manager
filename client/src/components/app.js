@@ -29,7 +29,7 @@ class App extends Component {
             <Route exact path="/user/:userId" component={UserPage} />
             <Route exact path="/quizzes/:quizId" component={QuizPage} />
             <Route exact path="/admin/:adminId/:userIndex" component={AdminView} />
-            <div className="Sign-out-button">
+            <div className="sign-out-button">
               <button type="submit" onClick={e => this.signOut(e)}>Sign Out</button>
             </div>
           </main>
