@@ -11,6 +11,9 @@ import '../CSS/quiz-page.css';
 class QuizPage extends Component {
 
   componentWillMount() {
+    if(!this.props.userId) {
+      this.props.history.push('/');
+    }
     this.props.dispatch(resetTest());
     this.props.dispatch(fetchQuiz(this.props.match.params.quizId));
   }

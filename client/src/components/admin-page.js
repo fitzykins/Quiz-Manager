@@ -9,7 +9,9 @@ import '../CSS/admin-page.css';
 
 class AdminPage extends Component {
   componentDidMount() {
-    if(this.props.users.length < 1){
+    if(!this.props.adminId) {
+      this.props.history.push(`/`);
+    }else if(this.props.users.length < 1){
       this.props.dispatch(fetchUsers());
     }
 
@@ -18,7 +20,7 @@ class AdminPage extends Component {
   render () {
    const users = this.props.users.map((user, index) => {
      return (
-       <li key={index} className="admin-user-list"> 
+       <li key={index} className="admin-user-list">
          <Link className="admin-user-link" to={`/admin/${this.props.adminId}/${index}`}>
            {user.userName}
          </Link>

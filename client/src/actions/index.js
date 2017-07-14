@@ -87,7 +87,7 @@ export const fetchUpdateQuizSuccess = (quizName, score, status) => ({
 });
 
 export const fetchLogIn = (username, password) => dispatch => {
-  const url = 'https://guiz-manager.herokuapp.com/api/login';
+  const url = 'http://localhost:8080/api/login';
   dispatch(fetchRequest());
   return fetch(url, {
     method: 'get',
@@ -112,7 +112,7 @@ export const fetchUsers = () => (dispatch, getState) => {
   const state = getState();
   const username = state.loginName;
   const password = state.loginPass;
-  const url = 'https://guiz-manager.herokuapp.com/api/users';
+  const url = 'http://localhost:8080/api/users';
 
   dispatch(fetchRequest());
 
@@ -138,7 +138,7 @@ export const fetchUser = userId => (dispatch, getState) => {
   const state = getState();
   const username = state.loginName;
   const password = state.loginPass;
-  const url = `https://guiz-manager.herokuapp.com/api/users/${userId}`;
+  const url = `http://localhost:8080/api/users/${userId}`;
 
   dispatch(fetchRequest());
 
@@ -164,7 +164,7 @@ export const fetchQuiz = quizId => (dispatch, getState) => {
   const state = getState();
   const username = state.loginName;
   const password = state.loginPass;
-  const url = `https://guiz-manager.herokuapp.com/api/quizzes/${quizId}`;
+  const url = `http://localhost:8080/api/quizzes/${quizId}`;
 
   dispatch(fetchRequest());
 
@@ -190,7 +190,7 @@ export const updateQuiz = (quizName, userId, score, status) => (dispatch, getSta
   const state = getState();
   const username = state.loginName;
   const password = state.loginPass;
-  const url = `https://guiz-manager.herokuapp.com/api/updateuserquiz/${quizName}/${userId}`;
+  const url = `http://localhost:8080/api/updateuserquiz/${quizName}/${userId}`;
 
   dispatch(fetchRequest());
 

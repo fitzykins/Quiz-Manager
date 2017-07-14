@@ -5,6 +5,11 @@ import {Link} from 'react-router-dom';
 import '../CSS/admin-view.css';
 
 class AdminView extends Component {
+  componentDidMount() {
+    if(this.props.users.length === 0) {
+      this.props.history.push(`/`);
+    }
+  }
 
   render() {
     if(this.props.users.length < 1 ) {

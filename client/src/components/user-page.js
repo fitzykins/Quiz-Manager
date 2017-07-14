@@ -8,7 +8,9 @@ import '../CSS/user.css';
 class UserPage extends Component {
 
   componentWillMount() {
-    // this.props.dispatch(fetchUser(this.props.match.params.userId));
+    if(!this.props.userId) {
+      this.props.history.push('/');
+    }
   }
 
   render () {
