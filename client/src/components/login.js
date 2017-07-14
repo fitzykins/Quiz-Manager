@@ -42,11 +42,11 @@ class Login extends Component {
             <div className='login-form'>
               <form onSubmit={e => this.logIn(e)} >
                 <div className='login'>
-                  <label className = 'login-direction'>Username</label>
+                  <label className='login-direction'>Username</label>
                   <input type='username' placeholder='username' value={this.props.loginName} onChange={e=> this.updateUser(e.target.value)} />
                 </div>
                 <div className='login'>
-                  <label className = 'login-direction'>Password</label>
+                  <label className='login-direction'>Password</label>
                   <input type='password' placeholder='password' value={this.props.password} onChange={e=> this.updatePassword(e.target.value)}/>
                 </div>
                 <button type="submit">login</button>
