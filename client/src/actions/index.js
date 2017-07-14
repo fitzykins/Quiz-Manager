@@ -57,6 +57,7 @@ export const fetchLogIn = (username, password) => dispatch => {
   dispatch(fetchRequest());
   return fetch(url, {
     method: 'get',
+    credentials: 'include',
     headers: {
       'Authorization': 'Basic ' + base64.encode(username +':' + password),
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -82,7 +83,9 @@ export const fetchUsers = () => (dispatch, getState) => {
 
   dispatch(fetchRequest());
 
-  return fetch(url).then(response => {
+  return fetch(url, {
+    credentials: 'include'
+  }).then(response => {
     if(!response.ok) {
       return Promise.reject(response.statusText);
     }

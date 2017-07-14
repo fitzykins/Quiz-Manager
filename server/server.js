@@ -47,7 +47,7 @@ app.use(bodyParser.json());
 app.use(express.static('./'));
 mongoose.Promise = global.Promise;
 passport.use(strategy);
-app.use(cookie());
+// app.use(cookie());
 app.use(session({ secret: 'white whale', cookie: {secure: false}}));
 app.use(passport.initialize());
 app.use(passport.session());
