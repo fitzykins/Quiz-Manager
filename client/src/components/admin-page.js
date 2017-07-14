@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchUsers} from '../actions';
 import {Link} from 'react-router-dom';
+
+import '../CSS/admin-page.css';
 // fetchUser,
 
 
@@ -16,8 +18,8 @@ class AdminPage extends Component {
   render () {
    const users = this.props.users.map((user, index) => {
      return (
-       <li key={index}>
-         <Link to={`/admin/${this.props.adminId}/${index}`}>
+       <li key={index} className="admin-user-list"> 
+         <Link className="admin-user-link" to={`/admin/${this.props.adminId}/${index}`}>
            {user.userName}
          </Link>
        </li>
@@ -25,7 +27,8 @@ class AdminPage extends Component {
    })
    return (
     <div className='admin-view'>
-      <h3>{this.props.adminName}</h3>
+      <h3 className="admin-name">{this.props.adminName}</h3>
+      <p className="user-nav">User List</p>
       <ul className="admin-users">
         {users}
       </ul>

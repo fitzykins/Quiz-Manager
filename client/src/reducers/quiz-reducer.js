@@ -32,7 +32,7 @@ const initialState = {
   answerOne: "answer",
   answerTwo: "answer",
   answerThree: "answer",
-  answerFour: "answer"
+  answerFour: "answer",
   loggedIn: false,
   admin: false,
   loginName: '',
@@ -143,7 +143,7 @@ export default (state=initialState, action) => {
       answerOne: "answer",
       answerTwo: "answer",
       answerThree: "answer",
-      answerFour: "answer"
+      answerFour: "answer",
       loggedIn:false,
       admin: false,
       loginName: '',

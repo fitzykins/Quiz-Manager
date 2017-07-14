@@ -11,6 +11,7 @@
     flex-wrap: wrap;
     justify-content: center;
     padding: 15px;
+    font-family: 'Source Sans Pro', sans-serif;
   }
 
   .answer{
@@ -20,6 +21,7 @@
     background-color: white;
     width: 33%;
     border: 5px outset;
+    font-family: 'Source Sans Pro', sans-serif;
   }
   .selected{
     border: 5px inset #373737;

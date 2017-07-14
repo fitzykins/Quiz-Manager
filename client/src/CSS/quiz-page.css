@@ -7,6 +7,7 @@
     border-bottom: 1px solid black;
     background-color: #C1DBE3;
     margin: 0px;
+    font-family: 'Source Sans Pro', sans-serif;
   }
 
   .quiz{
@@ -16,6 +17,7 @@
     height: 400px;
     background-color: white;
     box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;
   }
 
 }

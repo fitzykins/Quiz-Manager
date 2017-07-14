@@ -1,0 +1,26 @@
+.admin-user-container{
+  box-sizing: border-box;
+  margin: 0% 30% 10% 30%;
+  border: 2px solid #373737;
+  text-align: center;
+  height: 400px;
+  background-color: white;
+  box-sizing: border-box;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.admin-user-name{
+  margin: 5% 40% 0% 40%;
+  padding-bottom: 5px;
+}
+
+.admin-user-quiz-list{
+  list-style: none;
+  padding: 0px;
+}
+
+.admin-user-quiz{
+  border-top: 1px solid #C1DBE3;
+  margin: 0% 15% 0% 15%;
+  padding: 10px;
+}
