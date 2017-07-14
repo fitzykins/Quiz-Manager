@@ -33,6 +33,14 @@ Login screen:
 Admin Page:
 
 ![admin page](demo/admin-page.jpg)
+
+User Page:
+
+![user page](demo/user-view.jpg)
+
+Quiz Page:
+
+![quiz page](demo/quiz-page.jpg)
 ## The Stack
 
 * **The Front End**
