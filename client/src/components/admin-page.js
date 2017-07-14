@@ -17,6 +17,12 @@ class AdminPage extends Component {
 
   }
 
+  componentDidUpdate() {
+    if(!this.props.adminId) {
+      this.props.history.push(`/`);
+    }
+  }
+
   render () {
    const users = this.props.users.map((user, index) => {
      return (

@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-
 import '../CSS/admin-view.css';
 
 class AdminView extends Component {
-  componentDidMount() {
+  checkLogin() {
     if(this.props.users.length === 0) {
       this.props.history.push(`/`);
     }
   }
+
+  componentDidMount() {
+    this.checkLogin();
+  }
+
+  componentDidUpdate() {
+    this.checkLogin();
+  }
+
 
   render() {
     if(this.props.users.length < 1 ) {
