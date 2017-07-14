@@ -11,19 +11,37 @@ Our MVP uses quizzes as content, but the content could easily be anything (forms
 ## How To Use
 At the time of writing, there is no way to create users or quizzes, so there is some provided user/quiz data in the remote database for you to use.
 
-###Admin: username: Admin, password: test-password
+### Admin: (will be removed when more features are added)
+#### username: Admin, password: test-password
 The admin can view a list of non-admin users and click on their names. This will bring up the user's status in regards to each quiz.
 
-###UserOne: username: UserOne, password: test-password
+### UserOne: (will be removed when more features are added)
+#### username: UserOne, password: test-password
 This user can view a list of quizzes and their status in regards to the quiz (not taken, passed, failed). The user can then click on a quiz and take it.
 At the end of the quiz the results will be shown and a passing or failing status will be applied.
 
-###UserTwo: username: UserOne, password: test-password
+### UserTwo: (will be removed when more features are added)
+#### username: UserOne, password: test-password
 This user can view a list of quizzes and their status in regards to the quiz (not taken, passed, failed). The user can then click on a quiz and take it.
 At the end of the quiz the results will be shown and a passing or failing status will be applied.
 
+## Screengrabs
+Login screen:
 
-## The stack
+![login screen](demo/login-screen.jpg)
+
+Admin Page:
+
+![admin page](demo/admin-page.jpg)
+
+User Page:
+
+![user page](demo/user-view.jpg)
+
+Quiz Page:
+
+![quiz page](demo/quiz-page.jpg)
+## The Stack
 
 * **The Front End**
   * React
