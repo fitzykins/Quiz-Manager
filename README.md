@@ -45,7 +45,7 @@ At the end of the quiz the results will be shown and a passing or failing status
 * **Development and Technology**
   * Pros:
     * React is fun to work with.
-    * Redux makes is really easy to think about and manage state.
+    * Redux makes it really easy to think about and manage state.
   * Cons:
     * How does passport.session() work?
     * The fetch api does not automatically send cookies (more research needed).
