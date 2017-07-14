@@ -55,3 +55,4 @@ At the end of the quiz the results will be shown and a passing or failing status
   * Sign out button!
   * User creation.
   * More admin features such as quiz creation.
+  * TESTS, TESTS, and more TESTS!
