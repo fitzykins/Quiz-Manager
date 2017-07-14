@@ -3,3 +3,8 @@
   width: 125px;
   background-image: url('./assets/logo.png');
 }
+
+.sign-out-button  {
+  /*margin: 0 auto;*/
+  text-align: center;
+}

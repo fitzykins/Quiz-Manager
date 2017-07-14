@@ -1,16 +1,24 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-// import {fetchUser} from '../actions';
+import {fetchUser} from '../actions';
 import {Link} from 'react-router-dom';
 
 import '../CSS/user.css';
 
 class UserPage extends Component {
-
-  componentWillMount() {
+  checkLogin() {
     if(!this.props.userId) {
       this.props.history.push('/');
     }
+  }
+
+  componentDidMount() {
+    this.checkLogin();
+    this.props.dispatch(fetchUser(this.props.userId));
+  }
+
+  componentDidUpdate() {
+    this.checkLogin();
   }
 
   render () {
