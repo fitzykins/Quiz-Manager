@@ -16,9 +16,7 @@ class AdminPage extends Component {
 
   componentDidMount() {
     this.checkLogin();
-    if(this.props.users.length < 1) {
-      this.props.dispatch(fetchUsers());
-    }
+    this.props.dispatch(fetchUsers());
   }
 
   componentDidUpdate() {
