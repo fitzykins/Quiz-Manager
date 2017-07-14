@@ -22,8 +22,9 @@ At the end of the quiz the results will be shown and a passing or failing status
 This user can view a list of quizzes and their status in regards to the quiz (not taken, passed, failed). The user can then click on a quiz and take it.
 At the end of the quiz the results will be shown and a passing or failing status will be applied.
 
+## Screengrabs
 
-## The stack
+## The Stack
 
 * **The Front End**
   * React
