@@ -21,7 +21,7 @@ class App extends Component {
         <Router>
         <div className="App">
           <header>
-            <div><Link to="/"><div className="logo"></div></Link></div>
+            <div className="logo"><Link to="/"><div className="logo"></div></Link></div>
           </header>
           <main>
             <Route exact path="/" component={Login}/>
@@ -41,7 +41,7 @@ class App extends Component {
         <Router>
         <div className="App">
           <header>
-            <div><Link to="/"><div className="logo"></div></Link></div>
+            <div className="logo"><Link to="/"><div className="logo"></div></Link></div>
           </header>
           <main>
             <Route exact path="/" component={Login}/>
