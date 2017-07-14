@@ -11,7 +11,7 @@ const {DATABASE_URL, TEST_DATABASE_URL} = require('../config');
 
 const should = chai.should();
 chai.use(chaiHttp);
-
+ 
 function generateUser(){
   return {
     userName: faker.name.firstName(),
