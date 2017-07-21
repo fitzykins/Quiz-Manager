@@ -1,6 +1,6 @@
 # MVP For Quiz Manager App
 
-A working mvp for a quiz manager application. Find the demo at https://dashboard.heroku.com/apps/guiz-manager/deploy/heroku-git
+A working mvp for a quiz manager application. Find the demo at https://guiz-manager.herokuapp.com/
 
 ## Description
 Our quiz manager application allows users to complete content that is required for their job, and for administrators to check on the users' progress.
